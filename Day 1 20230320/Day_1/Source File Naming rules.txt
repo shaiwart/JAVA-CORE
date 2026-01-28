@@ -1,0 +1,171 @@
+
+
+class A
+{
+	main()
+	{
+
+	}
+}
+
+A.java					B.java
+
+javac A.java				javac B.java
+
+	A.class					A.class
+
+java A					java A
+
+
+
+
+class A
+{
+	main()
+	{
+
+	}
+}
+
+class B
+{
+
+}
+
+A.java				B.java				Sample.java
+
+javac A.java			javac B.java			javac Sample.java
+
+	A.class				A.class				A.class
+	B.class				B.class				B.class
+
+java A				java A				java A
+
+
+
+
+public class A
+{
+	main()
+	{
+
+	}
+}
+
+class B
+{
+
+}
+
+A.java				B.java
+
+javac A.java			javac B.java
+					error: A class is public and must be inside A.java
+	A.class
+	B.class
+
+java A
+
+
+
+
+
+class A
+{
+	main()
+	{
+
+	}
+}
+
+public class B
+{
+
+}
+
+B.java				A.java
+
+javac B.java			javac A.java
+	A.class				error: class B is public and must be inside B.java
+	B.class
+
+java A
+
+
+
+
+public class A
+{
+	main()
+	{
+
+	}
+}
+
+public class B
+{
+
+}
+
+A.java
+
+javac A.java
+
+	error: class B is public and should be there inside B.java
+
+if I save above code as 
+
+B.java
+
+javac B.java
+	error: class A is public and should be there inside A.java
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

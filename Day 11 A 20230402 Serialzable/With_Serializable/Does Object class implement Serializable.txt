@@ -1,0 +1,6 @@
+Does Object class implement Serializable?
+
+no. 
+why?
+
+Because had Java Founders made Object class implements Serializable, each and every class in java would have become eligible for serialization by default. They didn't want this. They wanted developers to decide whether to go for serialization or not.

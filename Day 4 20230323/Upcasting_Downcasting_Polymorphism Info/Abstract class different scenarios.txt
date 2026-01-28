@@ -1,0 +1,20 @@
+abstract class A
+{
+	abstract void disp1();
+	abstract void disp2();
+	abstract void disp3();
+	abstract void disp4();
+		+
+	concrete methods
+}
+abstract class B extends A		class child1 extends B [ define all ]
+{
+}
+class C extends A		     class child2 extends C    [define none]
+{
+	disp1(){} disp2(){} disp3(){} disp4(){}
+}
+abstract class D extends A	 class child3 extends D        [define disp2 ,disp3]
+{
+	disp1(){}   disp4(){}
+}

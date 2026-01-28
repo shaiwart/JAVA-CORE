@@ -1,0 +1,21 @@
+lazy_eager_resolution    folder
+
+What is Singleton
+
+"ArrayDemos" folder
+
+Scanner discussion
+
+JVM_Architecture
+
+package info
+
+jar info
+
+How to create Developer-Client Application
+
+
+
+
+
+

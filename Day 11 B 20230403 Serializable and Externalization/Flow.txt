@@ -1,0 +1,16 @@
+
+Customize_defaul_protocol
+
+Externalizable extends Serializable
+	writeExternal and readExternal
+	default constructor gets called at the time of deserialization and then readExternal method gets called.
+
+with externalizable
+
+How do writeObject and readObject work
+
+Compatible_InCompatible_Discussion
+
+Serialization_inner class
+
+

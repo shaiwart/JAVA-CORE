@@ -1,0 +1,276 @@
+whether "public" is compulsory for class?
+
+	no
+we make public class so that client or user of the class from anywhere can access the class.
+
+public class A
+{
+
+}
+
+how will you save your code?
+
+A.java
+
+how will you compile?
+
+javac A.java
+
+	you will get A.class [ bytecode ]
+
+
+
+public class A
+{
+
+}
+
+B.java
+
+javac B.java
+
+	compiler will give following error message:
+		class "A" is public and hence must be there inside "A.java"
+
+	you must save above code as "A.java"
+
+public class A
+{
+
+}
+public class B
+{
+
+}
+
+if we save above code by "A.java"
+
+	javac A.java
+		class "B" is public and hence must be there inside "B.java"
+
+if we save above code by "B.java"
+	java B.java
+		class "A" is public and hence must be there inside "A.java"
+
+class A
+{
+	main()
+	{
+	}
+}
+class B
+{
+
+}
+
+if we save our code by "A.java"
+	javac A.java
+		it will generate
+			A.class
+			B.class
+
+	how will I execute this code?
+		java A
+		   it will work
+
+
+		but if I execute it as:
+			java B
+				it won't work
+
+
+class A
+{
+	
+}
+class B
+{
+	main()
+	{
+	}
+}
+
+if we save our code by "A.java"
+	javac A.java
+		we'll get :
+			A.class
+			B.class
+
+	java A
+		it won't work
+	java B
+		it will work
+class A
+{
+	
+}
+class B
+{
+	
+}
+
+if we save our code by "A.java"
+	javac A.java
+		we'll get :
+			A.class
+			B.class
+
+	java A
+		won't work
+	java B
+		won't work
+
+
+class A
+{
+	
+}
+class B
+{
+	main()
+	{
+	}
+}
+
+if we save our code by "B.java"
+	javac B.java
+		we'll get :
+			A.class
+			B.class
+
+	java B
+
+public class A
+{
+	
+}
+class B
+{
+	main()
+	{
+	}
+}
+
+if we save our code by "A.java"
+	javac A.java
+		we'll get :
+			A.class
+			B.class
+
+	java A
+		won't work
+
+	java B
+		will work
+
+class A
+{
+	
+}
+class B
+{
+	main()
+	{
+	}
+}
+
+if we save our code by "sample.java"
+	javac sample.java
+		we'll get :
+			A.class
+			B.class
+
+	java B
+		will work
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,9 @@
+Scanner class belongs to "java.util" package.
+
+Scanner sc=new Scanner(System.in);
+
+while creating object of Scanner class we are passing "System.in" which represents keyboard input of console programs.
+
+int num=sc.nextInt();
+
+nextInt() and all the nextXXX() methods are non-static methods of the Scanner class.

@@ -1,0 +1,7 @@
+list.stream().filter(i -> i > 10).mapToInt(i -> i).sum();
+
+stream() and  filter() methods return "Stream"
+mapToInt() returns "IntStream". Hence they are intermediate operations.
+
+sum() method of IntStream returns "int". Hence it is a terminal operation.
+

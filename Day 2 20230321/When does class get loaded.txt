@@ -1,0 +1,128 @@
+
+When a class gets loaded ?
+
+	a) implicitly
+
+			java MyClass8
+
+
+				or
+
+			emp e=new emp(); when u create first object of that class
+
+				or
+
+
+			emp.staticmemberfun();
+
+
+
+	b) explicitly
+
+		Class.forName("classname");
+
+
+
+
+e.g
+
+
+
+package core1;
+
+class A
+{
+	public A() {
+		super();
+		System.out.println("A no-arg constructor");
+	}
+	static
+	{
+		System.out.println("A static block");
+	}
+	static void fun1()
+	{
+		System.out.println("in A fun1");
+	}
+}
+
+class B
+{
+	public B() {
+		super();
+		System.out.println("B no-arg constructor");
+	}
+	static
+	{
+		System.out.println("B static block");
+	}
+	static void fun2()
+	{
+		System.out.println("in B fun2");
+	}
+}
+class C
+{
+	public C() {
+		super();
+		System.out.println("C no-arg constructor");
+	}
+	static
+	{
+		System.out.println("C static block");
+	}
+	static void fun3()
+	{
+		System.out.println("in C fun3");
+	}
+}
+
+public class Demo 
+{
+	static
+	{
+		System.out.println("Demo static block");
+	}
+	public static void main(String args[])
+	{
+		C ob1=new C();
+		C.fun3();
+	System.out.println("**********************************");	
+		A.fun1();
+		A ob2=new A();
+		
+	System.out.println("**********************************");
+		try {
+			Class.forName("core1.B");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+	}
+}	
+
+	
+
+output:-
+
+Demo static block
+C static block
+C no-arg constructor
+in C fun3
+**********************************
+A static block
+in A fun1
+A no-arg constructor
+**********************************
+B static block
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,9 @@
+The reflection API represents, or reflects, the classes, interfaces, and objects in the current Java Virtual Machine. You'll want to use the reflection API if you are writing development tools such as debuggers, class browsers, and GUI builders. With the reflection API you can: 
+
+1) Determine the class of an object. 
+2) Get information about a class's modifiers, fields, methods, constructors, and superclasses. 
+3) Find out what constants and method declarations belong to an interface. 
+4) Create an instance of a class whose name is not known until runtime. 
+5) Get and set the value of an object's field, even if the field name is unknown to your program until runtime. 
+6) Invoke a method on an object, even if the method is not known until runtime. 
+7) Create a new array, whose size and component type are not known until runtime, and then modify the array's components

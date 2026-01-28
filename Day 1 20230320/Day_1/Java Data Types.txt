@@ -1,0 +1,32 @@
+			Data types in java
+
+	Primitive
+		
+		Integral
+		
+			byte		1 byte
+			short		2 bytes
+			int		4 bytes
+			long		8 bytes
+		
+		floating point
+			
+			float		4 bytes
+			double		8 bytes
+
+		textual		
+	
+			char		2 bytes [ unicode character ]
+	
+		boolean	
+			boolean
+
+
+
+	Reference type	[ any class or interface type ]
+
+
+
+
+
+

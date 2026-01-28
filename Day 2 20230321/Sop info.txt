@@ -1,0 +1,89 @@
+/*command line arguments
+
+	arguments given to running program.
+	arguments passed to main function.
+in java , main function is always ready to accept command line arguments.*/
+
+public class Demo
+{
+	public static void main(String args[])
+	{
+		for(int i=0;i<args.length;i++)
+		{
+			S.o.p(args[i]);
+		}
+	}
+}
+
+javac Demo.java
+java Demo abc xyz pqr
+
+
+
+
+public static void main(String args[])
+	
+
+public - so that main can be accessed from anywhere.
+
+static - so that jvm need not create the object of class in which main function is defined.
+
+void - main is not expected to return anything.
+
+String args[] - in java main should be always ready to accept command line arguments.
+
+
+class System
+{
+	public static PrintStream out;
+	public static InputStream in;
+}
+class PrintStream
+{
+	public void print(){}
+	public void println(){}
+}
+
+class InputStream
+{
+	public int read(){}
+	public int read(byte[]){}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

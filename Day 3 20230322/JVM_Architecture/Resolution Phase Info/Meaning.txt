@@ -1,0 +1,1 @@
+Resolving is a process of converting  symbolic references to their actual references.

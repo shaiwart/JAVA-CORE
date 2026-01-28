@@ -1,0 +1,10 @@
+public class MyClass
+{
+	int var;   // instance member , by def. initialized to 0
+	public static void main(String args[])
+	{
+		int num;  // local member
+		System.out.println(num);  // error, u must initialized num
+		System.out.println(var);  // no error
+	}
+}

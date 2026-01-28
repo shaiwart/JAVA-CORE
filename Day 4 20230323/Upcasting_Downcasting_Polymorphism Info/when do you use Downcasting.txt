@@ -1,0 +1,40 @@
+
+
+
+parent  =  child    // it is allowed by default-  upcasting
+
+child	    parent
+Dac_Dbda ob=ref;    // not allowed by default
+
+here you need to convert "ref" into "ob" i.e. parent class reference into child class reference. and this is known as "downcasting"
+
+so above statement can be written as
+
+Dac_Dbda ob=(Dac_Dbda) ref;  // downcasting
+
+So when do you use Downcasting?
+
+when we want to invoke child class method , which is not there in the parent class and we have parent class reference in the program , we have to downcast.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

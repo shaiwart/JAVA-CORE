@@ -1,0 +1,458 @@
+1) create a multi-threaded application by using  "extends Thread " method.create 2 threads. they should display characters from A to J.
+
+*******************
+MultiThreadDemo.java
+*******************
+
+
+public class MultiThreadDemo {
+
+	public static void main(String[] args) {
+		multiThread t1 = new multiThread();
+		multiThread t2 = new multiThread();
+		t1.start();
+		t2.start();
+	}
+
+}
+
+*******************
+multiThread.java
+*******************
+
+
+public class multiThread extends Thread {
+	
+	public void run(){
+		for(char ch='A'; ch<='J'; ch++){
+			System.out.println(ch);
+		}
+	}
+}
+
+
+*************************************************
+OUTPUT Q1
+*************************************************
+
+A
+B
+C
+D
+E
+F
+A
+B
+C
+D
+E
+F
+G
+H
+I
+J
+G
+H
+I
+J
+
+2) above program  using "implements Runnable" method.
+
+
+*******************
+MultiThreadDemo2.java
+*******************
+
+public class multiThreadDemo2 {
+
+	public static void main(String[] args) {
+		multiThread2 m1 = new multiThread2();
+		Thread t1 = new Thread(m1);
+		Thread t2 = new Thread(m1);
+		
+		t1.start();
+		t2.start();
+	}
+
+}
+
+*******************
+MultiThread2.java
+*******************
+
+public class multiThread2 implements Runnable {
+	public void run(){
+		for(char ch='A'; ch<='J'; ch++){
+			System.out.println(ch);
+		}
+	}
+}
+
+
+*************************************************
+OUTPUT 2
+*************************************************
+
+A
+B
+C
+D
+E
+F
+A
+G
+H
+I
+J
+B
+C
+D
+E
+F
+G
+H
+I
+J
+
+
+3) create 3 threads in such a way that while one thread is executing, 2 threads cannot interfere. they should display output "Exec  0" to "Exec 5".
+
+*************************************************
+multiThreadDemo3.java
+*************************************************
+
+public class multiThreadDemo3 {
+
+	public static void main(String[] args) {
+		multiThread3 m1 = new multiThread3();
+		Thread t1 = new Thread(m1);
+		Thread t2 = new Thread(m1);
+		Thread t3 = new Thread(m1);
+		
+		t1.setName("Thread 1");
+		t2.setName("Thread 2");
+		t3.setName("Thread 3");
+		
+		t1.start();
+		t2.start();
+		t3.start();
+	}
+
+}
+
+*************************************************
+multiThread3.java
+*************************************************
+
+public class multiThread3 implements Runnable {
+	synchronized public void run(){
+		for(int i=0; i<=5; i++){
+			System.out.println("Exec "+i);
+		}
+	}
+
+}
+
+
+
+*************************************************
+OUTPUT 3
+*************************************************
+
+Exec 0
+Exec 1
+Exec 2
+Exec 3
+Exec 4
+Exec 5
+Exec 0
+Exec 1
+Exec 2
+Exec 3
+Exec 4
+Exec 5
+Exec 0
+Exec 1
+Exec 2
+Exec 3
+Exec 4
+Exec 5
+
+4)create 2 threads. Write a program which displays number 1 to 10 using class lock. 
+[hint:- use "implements Runnable" and synchronized block]
+
+*************************************************
+ClassLock.java
+*************************************************
+public class ClassLock implements Runnable
+{
+	synchronized static void disp1()
+	{
+		for(int i=1;i<=10;i++)
+		{
+			System.out.println(+i);
+		}
+		
+	}
+	public void run()
+	{
+		disp1();
+	}
+	public static void main(String args[])
+	{
+		ClassLock c=new ClassLock();
+		ClassLock c1=new ClassLock();
+		Thread t1=new Thread(c);
+		Thread t2=new Thread(c1);
+		System.out.println("Class Lock using implement Runnable: ");
+		t1.start();
+		t2.start();
+	}
+}
+
+
+*************************************************
+OUTPUT 4
+*************************************************
+
+
+
+5) create 2 threads
+	one thread will display 1 to 50
+	second thread will display 50 to 1
+both the threads should start simultaneously.
+
+(use implements method)
+
+
+*************************************************
+Ascending.java
+*************************************************
+
+
+public class Ascending implements Runnable{
+	Monitor obj;
+	int breakv=1;
+	Ascending(Monitor obj)
+	{
+		this.obj=obj;
+	}
+	public void run()
+	{
+		int i=1;
+		while(breakv!=50)
+		{
+			breakv=obj.ascend(i++);
+		}
+	}
+}
+
+
+*************************************************
+Descending.java
+*************************************************
+
+public class Descending implements Runnable {
+	Monitor obj;
+	int breakv;
+	Descending(Monitor obj)
+	{
+		this.obj=obj;
+	}
+	public void run()
+	{
+		while(breakv!=50)
+		{
+			breakv=obj.descend();
+		}
+	}
+}
+
+
+*************************************************
+Monitor.java
+*************************************************
+
+public class Monitor {
+	int token;
+	boolean value_set;
+	synchronized public int ascend(int k)
+	{
+		while(value_set)
+		{
+			try
+			{
+				wait();
+			}
+			catch(InterruptedException ie)
+			{
+			}
+		}
+		token=k;
+		
+		System.out.println("Increment  "+token);
+		notifyAll();
+		value_set=true;
+		
+		return token;
+		
+	}
+	synchronized public int descend( )
+	{
+		while(!value_set)
+		{
+			try
+			{
+				wait();
+			}
+			catch(InterruptedException ie)
+			{
+			}
+		}
+		value_set=false;
+		System.out.println("Decrement  "+(51-token));
+		notifyAll();
+		return token;
+	}
+}
+
+
+*************************************************
+MultiThreadDemo5.java
+*************************************************
+
+public class MultiThreadDemo5 {
+
+	public static void main(String[] args) {
+		Monitor m1 = new Monitor();
+		Ascending a1 = new Ascending(m1);
+		Descending d1 = new Descending(m1);
+		
+		Thread t1 = new Thread(a1);
+		t1.setName("Increment thread");
+		Thread t2 = new Thread(d1);
+		t2.setName("Decrement thread");
+		
+		t1.start();
+		t2.start();
+	}
+
+}
+
+
+*************************************************
+OUTPUT 5
+*************************************************
+Increment  1
+Decrement  50
+Increment  2
+Decrement  49
+Increment  3
+Decrement  48
+Increment  4
+Decrement  47
+Increment  5
+Decrement  46
+Increment  6
+Decrement  45
+Increment  7
+Decrement  44
+Increment  8
+Decrement  43
+Increment  9
+Decrement  42
+Increment  10
+Decrement  41
+Increment  11
+Decrement  40
+Increment  12
+Decrement  39
+Increment  13
+Decrement  38
+Increment  14
+Decrement  37
+Increment  15
+Decrement  36
+Increment  16
+Decrement  35
+Increment  17
+Decrement  34
+Increment  18
+Decrement  33
+Increment  19
+Decrement  32
+Increment  20
+Decrement  31
+Increment  21
+Decrement  30
+Increment  22
+Decrement  29
+Increment  23
+Decrement  28
+Increment  24
+Decrement  27
+Increment  25
+Decrement  26
+Increment  26
+Decrement  25
+Increment  27
+Decrement  24
+Increment  28
+Decrement  23
+Increment  29
+Decrement  22
+Increment  30
+Decrement  21
+Increment  31
+Decrement  20
+Increment  32
+Decrement  19
+Increment  33
+Decrement  18
+Increment  34
+Decrement  17
+Increment  35
+Decrement  16
+Increment  36
+Decrement  15
+Increment  37
+Decrement  14
+Increment  38
+Decrement  13
+Increment  39
+Decrement  12
+Increment  40
+Decrement  11
+Increment  41
+Decrement  10
+Increment  42
+Decrement  9
+Increment  43
+Decrement  8
+Increment  44
+Decrement  7
+Increment  45
+Decrement  6
+Increment  46
+Decrement  5
+Increment  47
+Decrement  4
+Increment  48
+Decrement  3
+Increment  49
+Decrement  2
+Increment  50
+Decrement  1
+
+
+
+
+
+
+
+
+
+
+
+
+

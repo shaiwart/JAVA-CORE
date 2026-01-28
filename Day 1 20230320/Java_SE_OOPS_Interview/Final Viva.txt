@@ -1,0 +1,146 @@
+class vs object with example
+
+abstraction- real life example
+
+encapsulation -real life example
+
+Polymorphism - real life example
+
+lazy and eager resolution
+
+what is class Class? When do you use it in Java Program?
+
+Explain JVM architecture
+	explain class loader sub system
+	explain various runtime data areas
+	explain execution engine
+
+javac compiler vs JIT compiler
+
+what are the rules for overriding in java?
+
+what is NullPointerException
+
+what is java?
+
+what is automatic garbage collection
+
+what happens when u say "Java MyClass"
+
+what is package? what is the use of package?
+
+What is Java? why it is called as platform?
+
+what does JDK contain?
+
+what does jar file contain?
+
+what are the things developer needs to share with client?
+
+explain "System.out.println"
+
+what happens when u create an object.
+
+what is constructor? types. what is special about default constructor?
+
+what is "this" and what is its importance?
+
+what is static block? Where have u seen an application of static block inside JDK?
+
+what is non-static block? what is its use?
+
+what are static members?
+
+can static method access non-static and vice-versa. with explanation.
+
+how java is platform independent?
+
+how many places final can be applied
+
+Exception vs Error
+
+how many ways reusability can be achieved ? how will u decide bet'n is-a and has-a
+
+what is the concept of constructor in case of inheritance
+
+what is binding? how many types of bindings are there?
+
+what is upcasting? what is the purpose of upcasting?
+
+how many types of inheritance are alld in java? describe them
+
+what is abstract class in java
+
+what is interface in java
+
+when to use abstract class and when to use interface
+
+what is downcasting? what is the need of downcasting?
+
+what is ClassCastException? what is its solution ?
+
+what are the scenarios in which we have early binding in java?
+
+program to implementation vs interface explain with example.
+
+how does co-variant return type works in java ?
+
+checked vs unchecked exceptions
+
+handle vs declare rule
+
+what is finally block ? what is its use? what r the scenarios where finally block does not get executed?
+
+what is ARM
+
+access modifiers in java
+
+boxing and unboxing. ltd only to compiler level
+
+explain "extends Thread"
+
+explain "implements Runnable"
+
+what is synchronization
+
+what happens when u use synchronization
+
+what is class lock
+
+what is Thread Safe class
+
+What is ReEntrantLock? what are the pros and cons of using it.
+
+wait vs sleep
+
+rules for serialization
+
+how does put work in HashMap
+
+how does get work in HashMap
+
+if you want to store object of any user defined class as a key inside TreeMap or as an element inside TreeSet, what care u will take?
+	 
+how does set work internally
+
+what is Fail-Fast and Fail-safe iterator
+
+difference between Hashtable,HashMap and ConcurrentHashMap 
+
+what do u mean by Type-erasure? explain with the example.
+
+how generics are type-safe
+
+? extends FourWheeler vs ? super Car
+
+List<?> vs List<Object>
+
+what is Class-Wins Rule in Java8
+
+some times synchronized collections are not sufficient why
+
+Iterator itr=mylist.iterator() 
+	how does it work?
+
+how do u iterate on the map
+

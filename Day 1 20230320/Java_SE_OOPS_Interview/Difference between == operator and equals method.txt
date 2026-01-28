@@ -1,0 +1,7 @@
+What is the difference between == operator and equals() method?
+
+Most of you have been giving wrong answers in viva.
+
+The correct answer is :
+
+Both == operator and equals() method are same i.e. they check whether two references refer to same object or not. This is because java.lang.Object class's "equals()" method internally uses == opearator. Now the difference is that "equals()" method can be overridden in order to check the content i.e. values of instance members.

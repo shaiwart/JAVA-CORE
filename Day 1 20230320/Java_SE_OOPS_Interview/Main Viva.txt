@@ -1,0 +1,127 @@
+jvm architecture
+load link initialize
+resolution
+what is class Class
+what does Class.newInstance() do ?
+garbage collection
+finalize method
+how many places we can apply final keyword
+what happens when u say "Java MyClass"
+overriding rules
+ClassCastException
+accessibility modifiers in java
+equals and hashcode contract
+what is the difference between == and equals method?
+what is package? what is the use of package?
+what do you mean by String is immutable class?
+Why String is immutable class?
+what is string pool?
+difference between StringBuffer and StringBuilder
+instanceof
+NullPointerException
+What is Java
+What does JDK contain?
+what are the things developer needs to share with client?
+explain abstract class in java
+explain interface in java
+difference between abstract class and interface
+what is Exception
+checked vs unchecked
+handle or declare rule
+what is finally block
+in what scenario finally block will not be executed.
+ARM
+how does co-variant return type work in java?
+how do u create checked and unchecked exceptions
+on what basis u will decide to create checked or unchecked exceptions
+what is the difference between Error and Exception
+
+ClassNotFoundException vs NoClassDefFoundError
+
+explain how exactly protected member is accessed in a different package?
+
+what is autoboxing and unboxing?
+
+what are wrapper classes? what is the use of wrapper classes?
+
+difference between process-based and thread-based multitasking.
+
+explain "extends Thread" and "implements Runnable"
+
+what is synchronization?
+
+difference between applying synchronized keyword to a method and synchronized block. what argument u pass in synchronized block?
+
+what happens behind the scene when u synchronize?
+
+what is class lock?
+
+difference between sleep and wait.
+
+explain wait , notify and notifyAll.
+
+can we invoke wait,notify and notifyAll from any method? if no why ?
+
+what is the difference between implicit synchronization and ReEntrantLock?
+
+what care we need to take while invoking "unlock()" method of ReEntrantLock?
+
+what is the concept of thread pool?
+
+
+
+what is serialization? what are the rules in java if u want to go for serialization?
+
+how do u customize serialization in case of Serializable interface?
+
+difference between Serializable and Externalizable.
+
+does java.lang.Object implement Serializable? why?
+
+how does serialversionuid work?
+
+why it is recommended to declare serialversonuid inside the class?
+
+what is the change needs to be done in serialization - deserialization techniques when
+	a) class implements Serializable
+	b) class implements Externalizable
+	c) class implements Serializable and define private writeObject and readObject methods
+
+
+
+what are the steps u perform in order to serialize and deserialize object?
+
+why we need collection api? what does it provide?
+
+explain List , Set and Map.
+
+how does CopyOnWriteArrayList work?
+
+what is ConcurrentModificationException?
+
+What do u mean by Fail-Fast and Fail-Safe Iterator?
+
+what do u mean by capacity and loadfactor in case of Map?
+
+how does put method of HashMap or Hashtable work?
+
+how does get method of HashMap or Hashtable work?
+
+what care will u take in order to add any key inside TreeMap?
+
+what happens when we create a Set implementation in Java?
+
+why generics are introduced in java? what was the problem with java code which does not use generics?
+
+what is type erasure?
+
+
+
+
+
+
+
+
+
+
+

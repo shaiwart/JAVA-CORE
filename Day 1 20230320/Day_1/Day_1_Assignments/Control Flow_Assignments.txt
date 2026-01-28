@@ -1,0 +1,369 @@
+1)	Display a table of a particular number.
+
+Code:
+
+import static java.lang.System.out;
+import java.util.*;
+
+public class Myclass {
+    public static void main(String[] args) {
+        int num, x;
+        Scanner sc = new Scanner(System.in);
+        out.println("Enter the number: ");
+        num=sc.nextInt();
+        
+        for(x=1; x<=10; x++){
+            out.println(num+" x "+x+" = "+(num*x));
+        }
+	}
+}
+
+OUTPUT 1
+
+Enter the number:
+12
+12 x 1 = 12
+12 x 2 = 24
+12 x 3 = 36
+12 x 4 = 48
+12 x 5 = 60
+12 x 6 = 72
+12 x 7 = 84
+12 x 8 = 96
+12 x 9 = 108
+12 x 10 = 120
+
+2)	Declare two numbers and one operator as a character. e.g. '+' using switch... case check which operator is declared and accordingly perform the action.
+
+CODE 2:
+import static java.lang.System.out;
+import java.util.*;
+
+public class Myclass {
+    public static void main(String[] args) {
+        int num1, num2;
+        char op;
+        Scanner sc = new Scanner(System.in);
+
+        out.println("Enter first number: ");
+        num1 = sc.nextInt();
+        out.println("Enter second number: ");
+        num2 = sc.nextInt();
+
+        out.print("Enter the operator: ");
+        op=sc.next().charAt(0);
+
+        switch(op){
+            case '+': out.println("The summation of "+num1+" & "+num2+" is: "+(num1+num2));
+            break;
+
+            case '-': out.println("The subtraction of "+num1+" from "+num2+" is: "+(num1-num2));
+            break;
+
+            case '*': out.println("The multiplication of "+num1+" & "+num2+" is: "+(num1*num2));
+            break;
+
+            case '/': if(num2==0)
+                    out.println("Zero Division Error.");
+                else
+                    out.println("The division of "+num1+" by "+num2+" is: "+(num1/(float)num2));
+            break;
+
+            default: out.println("Invalid operator.");
+        }
+    }
+}
+
+OUTPUT 2 A
+
+Enter first number:
+13
+Enter second number:
+0
+Enter the operator: /
+Zero Division Error.
+
+OUTPUT 2 B
+
+Enter first number:
+13
+Enter second number:
+4
+Enter the operator: /
+The division of 13 by 4 is: 3.25
+
+OUTPUT 2 C
+Enter first number:
+2
+Enter second number:
+3
+Enter the operator: ^
+Invalid operator.
+
+
+3)	Display numbers  1 to 10 using do…. While loop.
+
+CODE 3
+
+import static java.lang.System.out;
+
+public class Myclass {
+    public static void main(String[] args) {
+        int i=1;
+        do{
+            out.println(i++);
+        }while(i<=10);
+    }
+}
+
+OUTPUT 3
+
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+
+
+4)	Display numbers from 3 to 30 except number 24  using while loop.
+
+CODE 4
+
+import static java.lang.System.out;
+
+public class Myclass {
+    public static void main(String[] args) {
+        int i=3;
+        while(i<=30){
+            if(i==24)
+                i++;
+            out.println(i++);
+        }
+    }
+}
+
+OUTPUT 4
+
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+25
+26
+27
+28
+29
+30
+
+
+5)	Using if…….else if….  Else,  display whether result is  fail, pass, second class , first class, Distinction etc.  
+
+6) display all prime numbers between 3 to 30.
+
+CODE 6
+
+import static java.lang.System.out;
+
+public class Myclass {
+    public static void main(String[] args) {
+        int i, j;
+        boolean isPrime;
+
+        for(i=3; i<=30; i=i+2){
+            j=i/2;
+            isPrime=true;
+            while(j>1){
+                if(i%j--==0){
+                    isPrime=false;
+                    break;
+                }
+            }
+            if(isPrime)
+                out.print(i+" ");
+        }
+    }
+}
+
+OUTPUT 6
+
+3 5 7 11 13 17 19 23 29
+
+7) using nested for loop display following :
+
+A  a
+A  b
+A  c
+
+B  a
+B  b
+B  c
+
+C  a
+C  b
+C  c
+
+CODE 7:
+
+import static java.lang.System.out;
+
+public class Myclass {
+    public static void main(String[] args) {
+        char i, j;
+
+        for(i='A'; i<='C'; i++){
+            for(j='a'; j<='c'; j++)
+                System.out.println(i+"\t"+j);
+            System.out.println();
+        }
+    }
+}
+
+
+8) solve following patten programs:
+
+
+    * 
+   * * 
+  * * * 
+ * * * * 
+* * * * * 
+
+CODE 8 a
+
+import static java.lang.System.out;
+import java.util.*;
+
+public class Myclass {
+    public static void main(String[] args) {
+        int i, j, rowNum;
+        Scanner sc = new Scanner(System.in);
+
+        out.print("Enter the number of rows to be print: ");
+        rowNum = sc.nextInt();
+
+        for(i=1; i<=rowNum; i++){
+            for(j=rowNum; j>i; j--)
+                System.out.print(" ");
+            for(j=1; j<=i; j++)
+                System.out.print("* ");
+            out.println();
+        }
+    }
+}
+
+OUTPUT 8 a
+
+Enter the number of rows to be print: 5
+    *
+   * *
+  * * *
+ * * * *
+* * * * *
+
+
+       * * * * 
+  	* * * 
+  	 * * 
+          * 
+
+CODE 8 b
+
+OUTPUT 8 b
+
+
+    * 
+   * * 
+  * * * 
+ * * * * 
+  * * * 
+   * * 
+    * 
+
+CODE 8 c
+
+import static java.lang.System.out;
+import java.util.*;
+
+public class Myclass {
+    public static void main(String[] args) {
+        int i, j, rowNum;
+        Scanner sc = new Scanner(System.in);
+
+        out.print("Enter the max. no. of stars in diamond pattern: ");
+        rowNum = sc.nextInt();
+
+        for(i=1; i<rowNum; i++){
+            for(j=rowNum; j>i; j--)
+                System.out.print(" ");
+            for(j=1; j<=i; j++)
+                System.out.print("* ");
+            System.out.println();
+        }
+        for(i=1; i<=rowNum; i++){
+            for(j=1; j<i; j++)
+                System.out.print(" ");
+            for(j=i; j<=rowNum; j++)
+                System.out.print("* ");
+            System.out.println();
+        }
+    }
+}
+
+OUTPUT 8 c
+
+Enter the max. no. of stars in diamond pattern: 6
+     *
+    * *
+   * * *
+  * * * *
+ * * * * *
+* * * * * *
+ * * * * *
+  * * * *
+   * * *
+    * *
+     *
+
+
+11) display all prime numbers between 3 to 30
+
+Repeated question 6.
+
+13) using nested for loop display following :
+
+A  a
+A  b
+A  c
+
+B  a
+B  b
+B  c
+
+C  a
+C  b
+C  c
+
+Repeated question 7
+
