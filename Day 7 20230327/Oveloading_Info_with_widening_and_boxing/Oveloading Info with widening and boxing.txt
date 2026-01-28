@@ -181,15 +181,4 @@ Rules For Oveloading methods using Widening, boxing, and var-args.
 3) You cannot widen from one wrapper type to another (IS-A fails).
 4) You cannot widen and then box (An int can't become Long).
 5) You can box and then widen.(An int can become an Object, via Integer).
-
-
-
-
-
-
-
 6) You can combine var-args with either widening or boxing.
-
-
-
-
