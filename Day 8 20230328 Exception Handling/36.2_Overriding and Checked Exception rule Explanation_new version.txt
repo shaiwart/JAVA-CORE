@@ -1,0 +1,176 @@
+Rule 1: Overriding method may not declare any checked exception
+================================================================================
+
+class Base {
+	public void disp() throws IOException {
+	}
+}
+
+class Sub extends Base {
+	public void disp() {
+	}
+}
+
+class Main {
+	public static void main(String[] args) {
+		Base ref = new Sub();
+		// ref.disp(); // Compilation Error: Unhandled exception type IOException
+	}
+}
+
+--------------------------------------------------------------------------------
+What the Compiler Checks:
+1. Search for "disp" in Base class. (Found)
+2. Is it accessible? (Yes)
+3. Does it declare any checked exceptions?
+   - Yes, Base.disp() declares "IOException".
+   - Therefore, main() method MUST either handle it (try-catch) or declare it (throws).
+
+Correction in Main:
+	public static void main(String[] args) {
+		Base ref = new Sub();
+		try {
+			ref.disp();
+		} catch (IOException ie) {
+			ie.printStackTrace();
+		}
+	}
+
+Runtime Behavior (Late Binding):
+1. Compiler checks: Is method final? (No). Is it static? (No).
+2. Late Binding occurs: At runtime, the actual object is of type `Sub`.
+3. `Sub.disp()` is invoked.
+4. `Sub.disp()` throws NO exceptions.
+5. The `catch` block in `main` is ready, but nothing is thrown.
+6. RESULT: Safe. No side effects.
+
+
+Rule 2: Overriding method can declare the same checked exception
+================================================================================
+
+class Base {
+	public void disp() throws IOException {
+	}
+}
+
+class Sub extends Base {
+	public void disp() throws IOException {
+	}
+}
+
+class Main {
+	public static void main(String[] args) {
+		Base ref = new Sub();
+		// ref.disp(); // Needs handling
+	}
+}
+
+--------------------------------------------------------------------------------
+What the Compiler Checks:
+1. Search for "disp" in Base. (Found)
+2. Base.disp() declares "IOException".
+3. Main must handle or declare it.
+
+Correction in Main:
+	public static void main(String[] args) {
+		Base ref = new Sub();
+		try {
+			ref.disp();
+		} catch (IOException ie) {
+			ie.printStackTrace();
+		}
+	}
+
+Runtime Behavior:
+1. Late Binding invokes `Sub.disp()`.
+2. `Sub.disp()` may throw `IOException`.
+3. If it does, the `catch(IOException)` block in `main` is ready to handle it.
+4. RESULT: Safe. No side effects.
+
+
+Rule 3: Overriding method can declare a sub-type of the checked exception
+================================================================================
+
+class Base {
+	public void disp() throws IOException {
+	}
+}
+
+class Sub extends Base {
+	public void disp() throws EOFException { // EOFException extends IOException
+	}
+}
+
+class Main {
+	public static void main(String[] args) {
+		Base ref = new Sub();
+		// ref.disp(); // Needs handling
+	}
+}
+
+--------------------------------------------------------------------------------
+What the Compiler Checks:
+1. Base.disp() declares "IOException".
+2. Main must handle "IOException".
+
+Correction in Main:
+	public static void main(String[] args) {
+		Base ref = new Sub();
+		try {
+			ref.disp();
+		} catch (IOException ie) {
+			ie.printStackTrace();
+		}
+	}
+
+Runtime Behavior:
+1. Late Binding invokes `Sub.disp()`.
+2. `Sub.disp()` may throw `EOFException`.
+3. `catch(IOException)` can catch `EOFException` (because of polymorphism/inheritance).
+4. RESULT: Safe. No side effects.
+
+
+Rule 4: Overriding method CANNOT declare a new or broader checked exception
+================================================================================
+
+Scenario A: Broader Exception
+--------------------------------------------------------------------------------
+class Base {
+	public void disp() throws IOException {
+	}
+}
+
+class Sub extends Base {
+	public void disp() throws Exception { // COMPILATION ERROR
+	}
+}
+
+Hypothetical Analysis (If this were allowed):
+1. Compiler checks `main`: `Base.disp()` throws `IOException`.
+2. `main` writes a `try-catch(IOException)`.
+3. Runtime: `Sub.disp()` is called.
+4. `Sub.disp()` throws `Exception`.
+5. `catch(IOException)` CANNOT catch `Exception` (Exception is the parent, not child).
+6. RESULT: The exception escapes, program terminates likely. Unsafe.
+   -> That is why the compiler prevents `Sub` from throwing `Exception`.
+
+Scenario B: New Checked Exception (when parent throws none)
+--------------------------------------------------------------------------------
+class Base {
+	public void disp() {
+	}
+}
+
+class Sub extends Base {
+	public void disp() throws Exception { // COMPILATION ERROR
+	}
+}
+
+Hypothetical Analysis (If this were allowed):
+1. Compiler checks `main`: `Base.disp()` throws NOTHING.
+2. `main` does NOT need a try-catch block.
+3. Runtime: `Sub.disp()` is called.
+4. `Sub.disp()` throws `Exception`.
+5. There is NO catch block.
+6. RESULT: Program crashes. Unsafe.
+   -> That is why the compiler prevents this.

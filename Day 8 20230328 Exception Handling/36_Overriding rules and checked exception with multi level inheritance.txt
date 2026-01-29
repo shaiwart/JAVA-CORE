@@ -1,82 +1,75 @@
-class Base
-{
-	public void disp()throws FileNotFoundException
-	{
-		
-	}
-}
-class Sub1 extends Base
-{
-	public void disp()
-	{
-		
-	}
-}
-class Sub2 extends Sub1
-{
-	// Error: Exception FileNotFoundException is not compatible 
-	// with throws clause in Sub1.disp()
-	public void disp()throws FileNotFoundException
-	{
-		
+Multi-Level Inheritance & Exception Handling Rules
+================================================================================
+CRITICAL RULE:
+When overriding a method, the overriding method in the subclass MUST respect the contract of the *immediate* superclass method it is overriding. 
+It does not matter what the "Grandparent" class threw if the "Parent" class has already narrowed the scope (e.g., throwing no exception or a more specific one). The Subclass cannot widen the scope back to what the Grandparent allowed if the Parent has restricted it.
+
+
+Scenario 1: Parent restricts exceptions, Child tries to widen
+--------------------------------------------------------------------------------
+class Base {
+	public void disp() throws FileNotFoundException {
 	}
 }
 
-
-
-
-
-class Base
-{
-	public void disp()throws Exception
-	{
-		
+class Sub1 extends Base {
+	// Sub1 chooses not to throw any checked exception.
+	// This is VALID (narrowing scope is allowed).
+	public void disp() {
 	}
 }
-class Sub1 extends Base
-{
-	// no problem
-	public void disp()throws FileNotFoundException
-	{
-		
-	}
-}
-class Sub2 extends Sub1
-{
-	// no problem
-	public void disp()throws FileNotFoundException
-	{
-		
+
+class Sub2 extends Sub1 {
+	// ERROR: FileNotFoundException is not compatible with throws clause in Sub1.disp()
+	// REASON: Sub2 overrides Sub1. Sub1.disp() declares NO exceptions.
+	// Therefore, Sub2 code must follow Sub1's contract (no checked exceptions).
+	// It cannot go back to Base's contract.
+	public void disp() throws FileNotFoundException { 
 	}
 }
 
 
-
-
-
-class Base
-{
-	public void disp()throws Exception
-	{
-		
+Scenario 2: Allowed Narrowing throughout the chain
+--------------------------------------------------------------------------------
+class Base {
+	public void disp() throws Exception {
 	}
 }
-class Sub1 extends Base
-{
-	// no problem
-	public void disp()throws FileNotFoundException
-	{
-		
+
+class Sub1 extends Base {
+	// Sub1 narrows "Exception" to "FileNotFoundException".
+	// VALID.
+	public void disp() throws FileNotFoundException {
 	}
 }
-class Sub2 extends Sub1
-{
-	// Exception Exception is not compatible with throws 
-	// clause in Sub1.disp()
-	public void disp()throws Exception    // Error
-	{
-		
+
+class Sub2 extends Sub1 {
+	// Sub2 declares the same exception as Sub1.
+	// VALID.
+	public void disp() throws FileNotFoundException {
 	}
 }
 
 
+Scenario 3: Parent narrows, Child tries to widen back to Grandparent's level
+--------------------------------------------------------------------------------
+class Base {
+	public void disp() throws Exception {
+	}
+}
+
+class Sub1 extends Base {
+	// Sub1 narrows "Exception" to "FileNotFoundException".
+	// VALID.
+	public void disp() throws FileNotFoundException {
+	}
+}
+
+class Sub2 extends Sub1 {
+	// ERROR: Exception is checked and broader than FileNotFoundException.
+	// REASON: Sub2 overrides Sub1. Sub1 says "I only throw FileNotFoundException".
+	// Sub2 cannot say "I throw Exception", even though Base (Grandparent) allowed it.
+	// The contract is strictly with the immediate parent.
+	public void disp() throws Exception {
+	}
+}
