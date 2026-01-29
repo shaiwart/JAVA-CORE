@@ -46,4 +46,3 @@ control goes back to disp()
 since exception was raised , control first goes inside "catch" and then "finally".
 
 inside finally block we get unhandled exception "NullPointerException" because of which finally can not be completed and execution aborts.
-

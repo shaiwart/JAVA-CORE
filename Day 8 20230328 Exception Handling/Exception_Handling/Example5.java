@@ -16,11 +16,11 @@ public class Example5
 			// if i want to perform any specific task in case of AIOOB
 			System.out.println(ae);
 		}
-		catch(Exception ae) 
+		catch(Exception ae)
 		{
 			System.out.println(ae);
 		}
-		
+
 		System.out.println("Array assigned");
 	}
 }

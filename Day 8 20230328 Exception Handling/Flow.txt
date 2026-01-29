@@ -11,6 +11,8 @@ Exception_Hierarchy
 Difference between Error and Exception
 
 Example1.java to Example7.java
+	Example 5 : rule - most specific catch block should precede most generic catch block.
+	Example 7 : finally{} block always executes whether or not exception is raised.
 
 finally block info
 More_About_finally

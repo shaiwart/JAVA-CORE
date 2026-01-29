@@ -10,7 +10,7 @@ public class Demo3
 		}
 	}
 	int disp(int k)
-	{ 
+	{
 		try
 		{
 			accept(k);
@@ -33,4 +33,3 @@ public class Demo3
 		System.out.println(e.disp(-5));
 	}
 }
-				

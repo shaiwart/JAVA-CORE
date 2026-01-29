@@ -1,10 +1,60 @@
-exception can be raised by 
-	a) JVM
-		or
-	b) Application [ Developer ]
+An exception in Java can be raised by:
+1) The JVM (automatically)
+2) The Application / Developer (manually)
+
+When an exception is raised, it happens in two steps:
+
+1) Instantiation
+   - An object of a specific exception class is created.
+   - Example: new NullPointerException(), new SQLException()
+   - At this stage, no control flow change occurs.
+
+2) Throwing
+   - The exception object is thrown to the caller.
+   - Normal program execution stops immediately.
+   - The JVM searches for a matching catch block.
+   - If not found, the exception propagates up the call stack.
+   - If unhandled, the program terminates.
+
+Both JVM-raised and developer-raised exceptions follow the same mechanism:
+create the exception object → throw it → handle or propagate.
 
 
-When exception is raised , it happens in two steps :
 
-a) instantiation of that particular exception class
-b) throwing that exception (that instance) to the caller.
+// Complete Exception Flow in Java (from detection to handling):
+
+1) An exceptional condition is detected
+   - Either by the JVM (e.g., divide by zero, null access)
+   - Or by the developer using the `throw` statement
+
+2) Instantiation of the exception
+   - An object of the appropriate exception class is created
+   - Stack trace information is captured at this moment
+
+3) Throwing the exception
+   - The exception object is thrown from the method where it occurred
+   - Normal execution of that method stops immediately
+
+4) JVM searches for a handler in the same method
+   - If a matching `catch` block exists:
+       → the exception is caught
+       → handling code executes
+       → normal flow continues after the try-catch
+
+5) If not handled in the same method
+   - The method terminates abruptly
+   - The exception is propagated to the caller method
+
+6) Propagation up the call stack
+   - JVM repeats the search for a matching `catch` block
+   - This continues from caller to caller
+
+7) If a matching catch block is found
+   - The exception is caught
+   - Handling logic executes
+   - Stack unwinding stops
+
+8) If no handler is found in any method
+   - The exception reaches the JVM default handler
+   - Stack trace is printed
+   - Program terminates abnormally

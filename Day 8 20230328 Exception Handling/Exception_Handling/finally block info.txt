@@ -5,6 +5,6 @@ finally block can follow after catch (try..catch...finally ) or even after try (
 
 finally block will not get executed if
 
-a) System.exit(0) is called inside try ,catch or finally block.
+a) System.exit(0) is called inside try, catch or finally block.
 
 b) exception gets raised in finally block itself.
