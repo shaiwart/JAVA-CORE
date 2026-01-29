@@ -58,15 +58,32 @@ catch(FileNotFoundException e)
 finally
 {
 	fis.close();
-}	
+}
 
 That is compiler provides "finally" block which has "fis.close()" statement. So since compiler takes care of releasing resource/s , It is known as "Automatic Resource Management"
 
-can we write any class inside ARM block?
 
+⭐️ can we write any class inside ARM block?
 	No. inside ARM block you can write only those classes which implement "AutoCloseable" or "Closeable" interface.
+	This is because the JVM automatically invokes the close() method at the end of the try block, and only these interfaces guarantee the presence of the close() method.
 
+	Valid ARM example:
+	try (FileInputStream fis = new FileInputStream("data.txt")) {
+		// use the file
+	}
 
+	Invalid ARM example:
+	try (String s = "hello") {   // compile-time error
+		// String does not implement AutoCloseable
+	}
 
+	Custom class example:
+	class MyResource implements AutoCloseable {
+		public void close() {
+			System.out.println("Resource closed");
+		}
+	}
 
-
+	try (MyResource r = new MyResource()) {
+		// use resource
+	}
