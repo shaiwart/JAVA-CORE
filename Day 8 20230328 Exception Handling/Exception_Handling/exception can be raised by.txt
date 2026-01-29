@@ -58,3 +58,33 @@ create the exception object → throw it → handle or propagate.
    - The exception reaches the JVM default handler
    - Stack trace is printed
    - Program terminates abnormally
+
+// Example
+class Test {
+    static void m1() {
+        int x = 10 / 0;   // Exception detected here
+    }
+
+    static void m2() {
+        m1();             // Exception propagates to m2
+    }
+
+    public static void main(String[] args) {
+        try {
+            m2();         // Exception propagates to main
+        } catch (ArithmeticException e) {
+            System.out.println("Exception caught in main");
+        }
+    }
+}
+
+// throw & catch in same method
+class Test {
+    public static void main(String[] args) {
+        try {
+            throw new RuntimeException("Error");
+        } catch (RuntimeException e) {
+            System.out.println("Handled here");
+        }
+    }
+}
