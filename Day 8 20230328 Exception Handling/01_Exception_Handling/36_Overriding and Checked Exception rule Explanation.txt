@@ -1,142 +1,115 @@
-overriding  method may not declare any checked exception.
+Rule 1: Overriding method may choose not to declare any checked exception
+------------------------------------------------------------------------
 
-class base
-{
-	public void disp()throws IOException
-	{
-	}
-}
-class sub extends base
-{
-	public void disp()
-	{
+class Base {
+	public void disp() throws IOException {
 	}
 }
 
+class Sub extends Base {
+	public void disp() {
+	}
+}
 
-main()
-{
-	base ref=new sub();
+class Main1 {
+	public static void main(String[] args) {
+		Base ref = new Sub();
+		try {
+			ref.disp();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+}
 
-	
+
+Rule 2: Overriding method can declare the same checked exception
+----------------------------------------------------------------
+
+class Base {
+	public void disp() throws IOException {
+	}
+}
+
+class Sub extends Base {
+	public void disp() throws IOException {
+	}
+}
+
+class Main2 {
+	public static void main(String[] args) {
+		Base ref = new Sub();
+		try {
+			ref.disp();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+}
+
+
+Rule 3: Overriding method can declare the same checked exception or its sub-type
+--------------------------------------------------------------------------------
+(The sub-type must be a subclass of the exception declared by the overridden method)
+
+class Base {
+	public void disp() throws IOException {
+	}
+}
+
+class Sub extends Base {
+	public void disp() throws EOFException {
+	}
+}
+
+class Main3 {
+	public static void main(String[] args) {
+		Base ref = new Sub();
+		try {
+			ref.disp();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+}
+
+
+Rule 4: Overriding method cannot declare a checked exception not declared by the overridden method
+-------------------------------------------------------------------------------------------------
+(The overriding method cannot throw a new or broader checked exception)
+
+// Example A: Broader exception
+class Base {
+	public void disp() throws IOException {
+	}
+}
+
+class Sub extends Base {
+	public void disp() throws Exception { // Compilation Error
+	}
+}
+
+class Main4 {
+	public static void main(String[] args) {
+		Base ref = new Sub();
+		// ref.disp();
+	}
+}
+
+// Example B: New checked exception when parent throws none
+class Base {
+	public void disp() {
+	}
+}
+
+class Sub extends Base {
+	public void disp() throws Exception { // Compilation Error
+	}
+}
+
+class Main5 {
+	public static void main(String[] args) {
+		Base ref = new Sub();
 		ref.disp();
-	
-}
-
-
-
-
-overriding method can declare same checked exception 
-
-class base
-{
-	public void disp()throws IOException
-	{
 	}
 }
-class sub extends base
-{
-	public void disp()throws IOException
-	{
-	}
-}
-
-
-
-main()
-{
-	base ref=new sub();
-	
-		ref.disp();
-	
-}
-
-
-
-
-overriding method can declare same checked exception or its sub-type declared by overriden method.
-
-class base
-{
-	public void disp()throws IOException
-	{
-	}
-}
-class sub extends base
-{
-	public void disp()throws EOFException
-	{
-	}
-}
-
-
-main()
-{
-	base ref=new sub();
-	
-	ref.disp();
-	
-}
-
-
-
-overriding method can not declare checked exception not declared by overriden method.
-
-// following code will not work
-
-class base
-{
-	public void disp()throws IOException
-	{
-	}
-}
-class sub extends base
-{
-	public void disp()throws Exception
-	{
-	}
-}
-
-
-
-main()
-{
-	base ref=new sub();
-	ref.disp();
-	
-}
-
-
-
-
-class base
-{
-	public void disp()
-	{
-	}
-}
-class sub extends base
-{
-	public void disp()throws Exception  // compilation error
-	{
-	}
-}
-
-
-main()
-{
-	base ref=new sub();
-	ref.disp();
-}
-
-
-
-
-
-
-
-
-
-
-
-
