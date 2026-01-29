@@ -29,7 +29,7 @@
 .idea/
 
 # VS Code files
-.vscode/
+!.vscode/
 
 # Mac system files
 .DS_Store
