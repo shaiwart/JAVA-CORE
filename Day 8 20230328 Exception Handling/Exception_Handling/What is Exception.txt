@@ -1,1 +1,18 @@
+// WHAT IS EXCEPTION
 An exception is an event, which occurs during the execution of a program, that interrupts the normal flow of the program's instructions.
+
+
+
+// WHY EXCEPTIONS
+
+In traditional programming, error detection, reporting, and handling often lead to confusing  code because programmers would use error code inside the main logic.
+
+Main advantages of exceptions:
+
+1. Exceptions are readable e.g. FileNotFoundException,ClassNotFoundException,NullPointerException etc.
+
+2. the ability to propagate error reporting up the call stack of methods. i.e. if a method does not want to handle an exception it can propagate it to the caller and so on. we did not have this advantage in traditional programming.
+
+3. because all exceptions thrown within a program are objects, the grouping or categorizing of exceptions is a natural outcome of the class hierarchy.
+
+4. execution continues. program does not terminate.
