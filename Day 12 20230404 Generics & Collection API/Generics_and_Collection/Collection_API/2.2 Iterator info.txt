@@ -1,31 +1,35 @@
-ArrayList <String>a1=new ArrayList<String>();
-		out.println("Initial size of a1:  "+a1.size());
-		a1.add("c");
-		a1.add("a");
-		a1.add("e");
-		a1.add("b");
+ITERATOR BASICS
+================================================================================
 
-// how to use iterator
+1. CREATING AND POPULATING A LIST
+--------------------------------------------------------------------------------
+ArrayList<String> myList = new ArrayList<String>();
+System.out.println("Initial size of myList: " + myList.size());
 
-Iterator itr=a1.iterator();
-	here "iterator()" is a method of ArrayList which returns the child class of 
-Iterator interface.
+myList.add("c");
+myList.add("a");
+myList.add("e");
+myList.add("b");
 
-while(itr.hasNext())
-	// hasNext() returns boolean i.e. it returns true as long as elements are there in ArrayList for traversal.
 
-{
-	S.o.p(itr.next());
-		next() method will return the current element and place the record pointer on next element.
+2. USING ITERATOR
+--------------------------------------------------------------------------------
+Iterator<String> itr = myList.iterator();
+ - The iterator() method of ArrayList returns an instance of an inner class that implements the Iterator interface.
+
+
+3. TRAVERSAL LOOP
+--------------------------------------------------------------------------------
+while(itr.hasNext()) {
+    System.out.println(itr.next());
 }
 
+Key Methods:
+------------
+boolean hasNext()
+ - Returns true if the iteration has more elements.
+ - Used as the loop condition to check if traversal should continue.
 
 
-
-
-
-
-
-
-
-
+next()
+ - method will return the current element and place the record pointer on next element.
