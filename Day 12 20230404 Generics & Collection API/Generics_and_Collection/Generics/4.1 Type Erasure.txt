@@ -1,5 +1,4 @@
-public class Generic1<T>
-{
+public class Generic1<T> {
 	private T first;
 	void setVal(T first)
 	{
@@ -9,11 +8,13 @@ public class Generic1<T>
 	{
 		return first;
 	}
+}
 
-when u compile above class, compiler will remove all the generic information because JVM can't understand Generics. This is known as "Type Erasure". So after compilation the above class will be as follows:
+When u compile above class, compiler will remove all the generic information because JVM can't understand Generics. This is known as "Type Erasure".
 
-public class Generic1
-{
+So after compilation the above class will be as follows:
+
+public class Generic1 {
 	private Object first;
 	void setVal(Object first)
 	{
@@ -23,3 +24,4 @@ public class Generic1
 	{
 		return first;
 	}
+}
