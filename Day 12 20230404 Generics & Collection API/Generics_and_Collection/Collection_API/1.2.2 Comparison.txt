@@ -1,0 +1,46 @@
+Why ArrayList replaced Vector and HashMap replaced Hashtable?
+=============================================================
+
+The core reason is Performance vs. Safety.
+
+Legacy classes (Vector, Hashtable) were "thread-safe by default," meaning every single method call (get, add, size) acquired a lock. This is safe but incredibly slow in single-threaded apps—which is 99% of usage.
+
+
+JAVA COLLECTION COMPARISONS
+
+===============================================================
+1. THE LIST BATTLE: VECTOR (Legacy) vs ARRAYLIST (Modern)
+===============================================================
+
+| Feature         | Vector (Legacy)                  | ArrayList (Modern)            |
+|-----------------|----------------------------------|-------------------------------|
+| Synchronization | YES (Synchronized)               | NO (Not Synchronized)         |
+|                 | Thread-safe but slow.            | Fast. Standard for most apps. |
+|-----------------|----------------------------------|-------------------------------|
+| Performance     | Slower (Acquires lock per call). | Faster (No locking overhead). |
+|-----------------|----------------------------------|-------------------------------|
+| Growth Strategy | Doubles size (100% increase).    | Grows by ~50%.                |
+|                 | Wastes memory on large lists.    | More memory efficient.        |
+|-----------------|----------------------------------|-------------------------------|
+| Best Use Case   | Legacy code only.                | Default choice for Lists.     |
+|                 | (Use CopyOnWriteArrayList instead)|                               |
+
+
+===============================================================
+2. THE MAP BATTLE: HASHTABLE vs HASHMAP vs CONCURRENT_HASHMAP
+===============================================================
+
+| Feature         | Hashtable (Legacy)     | HashMap (Modern)      | ConcurrentHashMap (Thread-Safe)|
+|-----------------|------------------------|-----------------------|--------------------------------|
+| Thread Safety   | YES (Fully Synch)      | NO                    | YES (Segment Locking)          |
+|-----------------|------------------------|-----------------------|--------------------------------|
+| Locking Scope   | Locks WHOLE map.       | No locks.             | Locks only the specific        |
+|                 | Blocks all threads.    |                       | "bucket" being written to.     |
+|-----------------|------------------------|-----------------------|--------------------------------|
+| Performance     | Slow (Bottleneck).     | Very Fast.            | Fast (High concurrency).       |
+|-----------------|------------------------|-----------------------|--------------------------------|
+| Null Keys/Values| NOT Allowed.           | Allowed (1 key, many) | NOT Allowed.                   |
+|-----------------|------------------------|-----------------------|--------------------------------|
+| Iterator Type   | Enumeration            | Fail-Fast             | Weakly Consistent              |
+|                 | (Legacy)               | (Crashes on mod)      | (Safe to modify while reading) |
+
