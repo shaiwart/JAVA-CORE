@@ -16,9 +16,10 @@ Iterable [I]
     │       └── Stack [C]            (Legacy, use Deque instead)
     │
     ├── Set [I]
+    │   ├── SortedSet [I]
+    │   │    └── TreeSet [C]         (Sorted)
     │   ├── HashSet [C]              <-- Default choice
     │   │   └── LinkedHashSet [C]    (Ordered by insertion)
-    │   ├── TreeSet [C]              (Sorted)
     │   └── CopyOnWriteArraySet [C]  (Thread-Safe)
     │
     └── Queue [I]
@@ -36,11 +37,18 @@ Iterable [I]
 ---------- MAP HIERARCHY ----------
 
 Map [I]
+├── SortedMap [I]
+│   └── TreeMap [C]                  (Sorted keys)
 ├── HashMap [C]                      <-- Default choice
 │   └── LinkedHashMap [C]            (Ordered by insertion)
-├── TreeMap [C]                      (Sorted keys)
-│
 ├── ConcurrentMap [I]                (Thread-Safe)
 │   └── ConcurrentHashMap [C]        <-- Modern replacement for Hashtable
-│
 └── Hashtable [C]                    (Legacy, Thread-Safe but slow)
+
+
+
+---------- UTILITY CLASSES (Helpers) ----------
+
+Object
+├── Collections [C] (Static methods: sort, shuffle, synchronizedList...)
+└── Arrays [C] (Static methods: asList, binarySearch, stream...)
