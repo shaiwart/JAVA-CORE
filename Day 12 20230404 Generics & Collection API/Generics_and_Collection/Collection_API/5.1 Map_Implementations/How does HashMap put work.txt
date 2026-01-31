@@ -19,9 +19,10 @@ Scenario B: Bucket is Not Empty (Hash Collision)
 - A node already exists at this index. We must traverse the linked list (or tree).
 
     Comparison Steps for each existing Node:
-    
+
     1. Check Hash & Reference (`k1 == k2`):
        - If Hash matches AND keys are same reference:
+            if (hash == existing.hash && key == existing.key)
        - ACTION: Overwrite the existing value with the new value. STOP.
 
     2. Check Equality (`k1.equals(k2)`):
