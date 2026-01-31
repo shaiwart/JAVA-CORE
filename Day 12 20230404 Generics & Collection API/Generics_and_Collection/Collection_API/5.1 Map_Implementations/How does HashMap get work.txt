@@ -1,10 +1,39 @@
-get operation
+HOW HASHMAP GET() WORKS
+================================================================================
+
+1. CALCULATE HASH
+--------------------------------------------------------------------------------
+- The `hashCode()` method of the Key is called.
+- This hash is used (after some internal bit-shifting) to calculate the index of the "Bucket".
+- Formula roughly: `index = hash & (n-1)` where n is array capacity.
 
 
-hashcode  - 
-	bucket is determined for search
+2. LOCATE BUCKET
+--------------------------------------------------------------------------------
+- The HashMap goes to that specific index in its internal array.
 
-		==  - true - get the value
-		      false
-			 equals - true - get the value
-				false - linked list will be traverse and subsequently == and equals are invoked.
+
+3. SEARCH IN BUCKET (Resolution)
+--------------------------------------------------------------------------------
+If the bucket is empty:
+    - Return `null`.
+
+If the bucket contains entries (Nodes):
+    - It traverses the linked list (or Red-Black Tree in Java 8+) at that bucket.
+    - For each node, it compares the Key:
+
+    A. Check Hash:
+       - First, check if `node.hash == key.hash`.
+       
+    B. Check Identity (==):
+       - If hash matches, check if `node.key == key` (Same reference?).
+       - IF TRUE: Return node value.
+
+    C. Check Equality (equals):
+       - If reference check fails, call `key.equals(node.key)`.
+       - IF TRUE: Return node value.
+       
+    D. Next Node:
+       - IF FALSE: Move to the next node in the list and repeat steps A-C.
+
+    - If end of list reached without match: Return `null`.

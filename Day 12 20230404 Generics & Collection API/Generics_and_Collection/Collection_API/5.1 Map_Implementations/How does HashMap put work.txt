@@ -1,16 +1,42 @@
-put operation
+HOW HASHMAP PUT() WORKS
+================================================================================
+
+1. DETERMINE BUCKET
+--------------------------------------------------------------------------------
+- The `hashCode()` method of the Key is invoked.
+- Based on the hash code, the specific bucket index is calculated.
 
 
-hashCode() is invoked to determine the bucket.
+2. INSERTION SCENARIOS
+--------------------------------------------------------------------------------
 
-hashcode  - first entry
+Scenario A: Bucket is Empty
+- A new Node (Entry) is created with the Key, Value, and Hash.
+- This node is placed directly in the bucket.
 
-	subsequent entries
 
-hashcode - different - different bucket
+Scenario B: Bucket is Not Empty (Hash Collision)
+- A node already exists at this index. We must traverse the linked list (or tree).
 
-	   same  [ hash collision case]
-		==  - true - overwrite the value
-		      false
-			 equals - true - overwrite the value
-				false - linked list will be formed within a bucket i.e. same bucket having different Entries [Entry]
+    Comparison Steps for each existing Node:
+    
+    1. Check Hash & Reference (`k1 == k2`):
+       - If Hash matches AND keys are same reference:
+       - ACTION: Overwrite the existing value with the new value. STOP.
+
+    2. Check Equality (`k1.equals(k2)`):
+       - If `key.equals(existingKey)` returns true:
+       - ACTION: Overwrite the existing value with the new value. STOP.
+
+    3. No Match Found:
+       - If the key does not match any existing key in the list:
+       - ACTION: Create a new Node and add it to the end of the linked list (or add to tree).
+         (Note: In Java 8, if list length > 8, it converts to a Red-Black Tree).
+
+
+SUMMARY
+--------------------------------------------------------------------------------
+- Different Hash Code -> Different Bucket.
+- Same Hash Code -> Same Bucket (Collision).
+    - If Keys are Equal (== or equals) -> Replace Value.
+    - If Keys are Not Equal -> Append to List/Tree (Separate Chaining).
