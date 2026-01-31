@@ -1,14 +1,48 @@
-List<String> mylist=new ArrayList<String>();  // non-thread safe list
+HOW TO CONVERT NON-THREAD-SAFE COLLECTIONS TO THREAD-SAFE
+================================================================================
 
-List<String> mylist1=Collections.synchronizedList(mylist);
+1. OVERVIEW
+--------------------------------------------------------------------------------
+The `Collections` utility class provides static methods to wrap standard 
+collections (like ArrayList, HashMap) into synchronized (thread-safe) versions.
 
-	mylist1-  Thread safe list
+
+2. CONVERTING A LIST
+--------------------------------------------------------------------------------
+Method: `Collections.synchronizedList(List<T> list)`
+
+Example:
+    // 1. Create a non-thread-safe list
+    List<String> myList = new ArrayList<String>();
+
+    // 2. Wrap it to make it thread-safe
+    List<String> threadSafeList = Collections.synchronizedList(myList);
+
+    // Now 'threadSafeList' is synchronized.
 
 
+3. CONVERTING A MAP
+--------------------------------------------------------------------------------
+Method: `Collections.synchronizedMap(Map<K,V> m)`
 
-Map<String,Integer> mymap=new HashMap<String,Integer>();   // non-thread safe map
+Example:
+    // 1. Create a non-thread-safe map
+    Map<String, Integer> myMap = new HashMap<String, Integer>();
 
-Map<String,Integer> mymap1=Collections.synchronizedMap(mymap);
+    // 2. Wrap it to make it thread-safe
+    Map<String, Integer> threadSafeMap = Collections.synchronizedMap(myMap);
 
-	mymap1 - Thread safe map
+    // Now 'threadSafeMap' is synchronized.
 
+
+4. IMPORTANT NOTE ON ITERATION
+--------------------------------------------------------------------------------
+Even though the collection methods (add, get, etc.) are synchronized, 
+ITERATION is NOT synchronized by default. You must manually synchronize on 
+the collection object during traversal:
+
+    synchronized(threadSafeList) {
+        Iterator<String> i = threadSafeList.iterator(); 
+        while (i.hasNext())
+            System.out.println(i.next());
+    }
