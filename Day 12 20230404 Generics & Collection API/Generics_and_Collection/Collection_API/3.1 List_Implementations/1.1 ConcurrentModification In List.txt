@@ -1,0 +1,44 @@
+package main;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
+
+public class Demo {
+    public static void main(String[] args) {
+        List<String> list = new CopyOnWriteArrayList<>();
+		// List<String> list = new ArrayList<>();
+
+        list.add("A");
+        list.add("B");
+        list.add("C");
+
+        for (String s : list) {
+            System.out.println(s);
+
+            // Safe modification during iteration
+            if (s.equals("B")) {
+                list.remove("B");
+                list.add(1, "MODIFIED_B");
+            }
+        }
+
+        System.out.println("Final list: " + list);
+    }
+}
+
+
+// OUTPUT : 1
+A
+B
+C
+Final list: [A, MODIFIED_B, C]
+
+
+
+// OUTPUT : 2
+A
+B
+Exception in thread "main" java.util.ConcurrentModificationException
+	at java.base/java.util.ArrayList$Itr.checkForComodification(ArrayList.java:1096)
+	at java.base/java.util.ArrayList$Itr.next(ArrayList.java:1050)
+	at main.Demo.main(Demo.java:17)
