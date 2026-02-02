@@ -173,7 +173,7 @@ HAVING COUNT(*) >= 5;
 ```
 #### HAVING in detail
 👉 HAVING is for conditions on a group, not on individual rows. So you can put only things that make sense after grouping.
-[What things we can write in HAVING -- detailed note](/DATABASE/sql.having.md)
+[What things we can write in HAVING -- detailed note](/DATABASE/MY%20NOTES/sql.having.md)
 
 ### COUNT(*) vs COUNT(col)
 
