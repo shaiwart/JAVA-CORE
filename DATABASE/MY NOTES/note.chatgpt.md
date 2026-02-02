@@ -286,16 +286,42 @@ SELECT city FROM vendors;
 SELECT MAX(salary) AS second_highest
 FROM employees
 WHERE salary < (SELECT MAX(salary) FROM employees);
+-- NOTE :
+  -- Use Ranking window function here, instead of the above approach.
+  -- For 2nd we can use this. But if asked for 3rd, 4th etc then this won't work. For this we NEED TO USE `Window functions`.
 ```
-NOTE : Use Ranking window function here, instead of the above approach. Read --> Ranking Window Function
 
 ### 2) Find Duplicate : find duplicate rows by email
 
 ```sql
+-- 1️⃣ WITHOUT WINDOW FUNCTION
 SELECT email, COUNT(*) c
 FROM users
 GROUP BY email
 HAVING COUNT(*) > 1;
+
+-- 2️⃣ USING WINDOW FUNCITON
+  -- 1. WITH CTE (LOOKS SIMPLE)
+  WITH CTE AS (
+    SELECT *, ROW_NUMBER() OVER(
+          PARTITION BY email
+          ORDER BY created_at DESC
+          ) as rn
+    FROM users
+  )
+  SELECT * FROM CTE WHERE rn > 1;
+  -- NOTE : Here instead of `CTE` we can write anything. It is just a in memory table name.
+
+  -- 2. WITHOUT CTE (LOOKS COMPEX; NESTED STRUCTURE)
+  SELECT *
+  FROM (
+        SELECT *, ROW_NUMBER() OVER(
+          PARTITION BY email
+          ORDER BY created_at DESC
+          ) as rn
+        FROM users
+  ) t
+  WHERE rn > 1
 ```
 
 ### 3) Delete duplicates : delete duplicate (keep latest) ⭐️⭐️⭐️
@@ -304,7 +330,20 @@ HAVING COUNT(*) > 1;
 Keeping the latest one is the hardest part. That why we are using window function.
 
 ```sql
--- USING WINDOW FUNCTION
+-- USE CTE & WINDOW FUNCTION (✅ EASIER)
+WITH CTE AS (
+   SELECT *, ROW_NUMBER() OVER(
+        PARTITION BY email
+        ORDER BY created_at DESC
+        ) as rn
+   FROM users
+)
+DELETE FROM CTE WHERE rn > 1;
+  -- NOTE :
+    -- 1. Here instead of `CTE` we can write anything. It is just a in memory table name.
+    -- 2. Delete operations on CTE affect the original tables.⭐️
+
+-- WITHOUT CTE (⚠️ LOOKS COMPLEX)
 DELETE FROM users
 WHERE id IN (
   SELECT id
@@ -318,9 +357,10 @@ WHERE id IN (
   ) t
   WHERE rank > 1
 );
+
 ```
 
-### 4) Users with no orders
+### 4) Users with no orders (EASY BUT TRICKY) 👈
 
 ```sql
 SELECT u.*
@@ -338,6 +378,81 @@ FROM table_a a
 LEFT JOIN table_b b ON b.key = a.key
 WHERE b.key IS NULL;
 ```
+
+---
+## **10. DELETE vs TRUNCATE vs DROP**
+
+* **DELETE (DML)**: Deletes rows one by one. Can have a `WHERE` clause. Slower. Can be rolled back.
+* **TRUNCATE (DDL)**: Resets the table. Reallocates pages. Very fast. Cannot be rolled back (in most DBs). No `WHERE` clause.
+* **DROP (DDL)**: Deletes the table structure entirely.
+
+
+
+##### DELETE
+``` sql
+DELETE FROM employees;
+DELETE FROM employees WHERE department = 'HR';
+```
+
+Effect on data
+
+❌ Data rows are removed
+✅ Can delete some rows (with WHERE)
+❌ Slow for large tables (row-by-row operation)
+✅ Can be rolled back
+✅ Fires DELETE triggers
+
+Effect on table structure
+
+✅ Table structure remains
+✅ Indexes, constraints, schema all stay intact
+
+
+##### TRUNCATE
+``` sql
+TRUNCATE TABLE employees;
+```
+Effect on data
+
+❌ All data is removed
+❌ Cannot use WHERE
+✅ Very fast (metadata operation)
+❌ Cannot be rolled back (in most DBs)
+❌ Does not fire DELETE triggers
+
+Effect on table structure
+
+✅ Table structure remains
+✅ Indexes and constraints remain
+🔄 Resets identity / auto-increment counter
+
+##### DROP
+``` sql
+DROP TABLE employees;
+```
+
+Effect on data
+❌ All data is permanently removed
+❌ Cannot be rolled back
+
+Effect on table structure
+
+❌ Table structure is removed
+❌ Indexes, constraints, triggers — all gone
+
+
+
+
+| Feature                 | DELETE | TRUNCATE     | DROP    |
+| ----------------------- | ------ | ------------ | ------- |
+| Removes data            | ✅ Yes  | ✅ Yes        | ✅ Yes   |
+| Removes table structure | ❌ No   | ❌ No         | ✅ Yes   |
+| WHERE clause            | ✅ Yes  | ❌ No         | ❌ No    |
+| Transaction rollback    | ✅ Yes  | ❌ Usually No | ❌ No    |
+| Speed                   | Slow   | Very Fast    | Instant |
+| Triggers fired          | ✅ Yes  | ❌ No         | ❌ No    |
+| Resets identity         | ❌ No   | ✅ Yes        | ❌ N/A   |
+
 
 ---
 # ADVANCED SECTION
