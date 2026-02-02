@@ -235,5 +235,5 @@ If previous row doesn’t exist → return `0` instead of `NULL`.
 
 ---
 
-* 🔥 **Top 5 interview questions using LAG/LEAD** [page link](/DATABASE/MY%20NOTES/Lag-Lead-Interview-problems.md)
-* 🔥 **Practice problems with answers** [page link](/DATABASE/MY%20NOTES/Lag-Lead-Interview-problems.md)
+* 🔥 **Top 5 interview questions using LAG/LEAD** [page link](lag-lead-Interview-problems.md)
+* 🔥 **Practice problems with answers** [page link](lag-lead-Interview-problems.md)

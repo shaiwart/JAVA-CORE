@@ -173,7 +173,7 @@ HAVING COUNT(*) >= 5;
 ```
 #### HAVING in detail
 👉 HAVING is for conditions on a group, not on individual rows. So you can put only things that make sense after grouping.
-[What things we can write in HAVING -- detailed note](/DATABASE/MY%20NOTES/sql.having.md)
+[What things we can write in HAVING -- detailed note](sql-having-in-detail.md)
 
 ### COUNT(*) vs COUNT(col)
 
@@ -215,8 +215,8 @@ WHERE EXISTS (
 
 Window functions let you compute values **without collapsing rows** like GROUP BY.
 
-[⭐️ Detailed note : Ranking Window functions (Very nicely explained here)](/DATABASE/MY%20NOTES/Ranking%20Window%20functions.md)
-[Detailed note : All Window functions](/DATABASE/MY%20NOTES/All%20Window%20functions.md)
+[⭐️ Detailed note : Ranking Window functions (Very nicely explained here)](window-functions-ranking-functions.md)
+[Detailed note : All Window functions](window-functions-complete-guide.md)
 
 ### ROW_NUMBER / RANK / DENSE_RANK
 
@@ -239,7 +239,7 @@ WHERE rnk <= 3
 * `RANK()` → ties share rank, skips numbers (1,1,3)
 * `DENSE_RANK()` → ties share rank, no skip (1,1,2)
 
-### Running total [NOTE](/DATABASE/MY%20NOTES/Running%20total.md)
+### Running total [NOTE](running-total-part-1.md)
 
 ```sql
 SELECT

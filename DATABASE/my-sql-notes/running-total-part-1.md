@@ -215,7 +215,7 @@ running_total - LAG(running_total)
 ```
 SUM() + OVER + ORDER BY + UNBOUNDED PRECEDING → CURRENT ROW
 ```
-[Explain the above query](/DATABASE/MY%20NOTES/Running%20total%20-%202.md)
+[Explain the above query](running-total-part-2.md)
 ---
 
 If you want next:

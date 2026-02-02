@@ -169,9 +169,9 @@ id  name dep_id  salary  rank
 11	"K"	  30	 60000	  4
 ```
 ## See the images :
-![alt text](/DATABASE/MY%20NOTES/images//1%20ROW_NUMBER.png)
-![alt text](/DATABASE/MY%20NOTES/images//2%20RANK.png)
-![alt text](/DATABASE/MY%20NOTES/images//3%20DENSE_RANK.png)
+![alt text](images/1-row-number.png)
+![alt text](images/2-rank.png)
+![alt text](images/3-dense-rank.png)
 
 ---
 
