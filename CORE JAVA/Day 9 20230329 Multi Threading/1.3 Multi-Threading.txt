@@ -334,24 +334,111 @@ What is the use of implements Runnable?
 
 RACE CONDITION
 ===============
-The above program also proves that threads can share the memory.
+
+The example `Th5` shows that two threads can share the same `Runnable` object. To prove they share the same memory:
+
+class SharedMemory implements Runnable {
+    int count = 0; // Shared variable
+
+    public void run() {
+        for(int i=0; i<5; i++) {
+            count++;
+            System.out.println(Thread.currentThread().getName() + " - Count: " + count);
+        }
+    }
+}
+
+class TestShared {
+    public static void main(String args[]) {
+        SharedMemory ob = new SharedMemory();
+        Thread t1 = new Thread(ob, "Thread-A");
+        Thread t2 = new Thread(ob, "Thread-B");
+        t1.start();
+        t2.start();
+    }
+}
+
+In this example, both threads are incrementing the SAME `count` variable. This proves that threads can share memory.
 
 When threads share the memory there is a risk of "race condition".
 
-e.g.
-	There are 2 threads.
-	One thread is reading from a file
-	Other thread is writing to a file.
+e.g. The "Bank Account" Problem:
+	Imagine an account with balance = 1000.
+	Thread A wants to withdraw 500.
+	Thread B wants to withdraw 500.
+
+	The Logical Steps for a Withdrawal:
+	1. Read current balance.
+	2. Check if (balance >= withdrawal_amount).
+	3. Subtract amount from balance.
+	4. Write new balance back to memory.
+
+	The Race Condition Scenario:
+	- Thread A reads balance (1000).
+	- Thread B reads balance (1000) *before A could update it*.
+	- Thread A checks 1000 >= 500 (Yes), subtracts, and writes 500.
+	- Thread B checks 1000 >= 500 (Yes), subtracts, and writes 500.
+
+	End Result: You withdrew 1000 total, but the balance is still 500 instead of 0!
 
 Race condition means
-	while one thread is reading from a file, other thread might write in a file or vice-versa.
+	While one thread is working on the "Read-Modify-Write" cycle, another thread interrupts and works on the same data, leading to inconsistent results.
+
 Race condition always leads to Data Corruption.
 
 How do we avoid Race condition?
-	We will have to make sure that while one thread is working on a data, other thread should not run. Only after first thread completes its job, other thread should start its execution. In Java we can achieve this by using "synchronization".
+	We will have to make sure that the entire "Read-Modify-Write" operation is ATOMIC (happens as one single unit). In java we can achieve this by using "synchronization".
 
 	"synchronization" is a solution to the race condition.
 
+// Synchronized Solution for Bank Account Problem
+class BankAccount {
+    int balance = 1000;
+
+    // 'synchronized' ensures only one thread can enter this method at a time
+    synchronized void withdraw(int amount) {
+        if (balance >= amount) {
+            System.out.println(Thread.currentThread().getName() + " is accessing balance.");
+
+            // Simulating some processing time to allow context switching (if it wasn't sync)
+            try { Thread.sleep(100); } catch (Exception e) {}
+
+            balance = balance - amount;
+            System.out.println(Thread.currentThread().getName() + " withdrew " + amount + ". Rem Balance: " + balance);
+        } else {
+            System.out.println(Thread.currentThread().getName() + " - Insufficient funds!");
+        }
+    }
+}
+
+// Custom Thread class to perform withdrawal
+class WithdrawThread extends Thread {
+    BankAccount account;
+    int amount;
+
+    WithdrawThread(BankAccount account, int amount, String name) {
+        super(name);
+        this.account = account;
+        this.amount = amount;
+    }
+
+    public void run() {
+        account.withdraw(amount);
+    }
+}
+
+class TestBank {
+    public static void main(String args[]) {
+        BankAccount account = new BankAccount(); // ONE shared account object
+
+        // Create threads using the custom class
+        WithdrawThread t1 = new WithdrawThread(account, 500, "Thread-A");
+        WithdrawThread t2 = new WithdrawThread(account, 500, "Thread-B");
+
+        t1.start();
+        t2.start();
+    }
+}
 
 public class Th6 implements Runnable
 {
@@ -371,9 +458,6 @@ public class Th6 implements Runnable
 		t2.start();
 	}
 }
-
-
-
 
 public class Th7 implements Runnable
 {
