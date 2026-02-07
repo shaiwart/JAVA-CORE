@@ -1,26 +1,24 @@
-		Multi-Threading
+# Multi-Threading
 
-		Multi-tasking
+## Multi-tasking
 
-What is multi-tasking: performing more than one task simultaneously.
+**What is multi-tasking:** performing more than one task simultaneously.
 
 a) Process-based multi-tasking
 b) Thread-based multi-tasking
 
-Process - is a program in execution.
-Thread - is one of the parts of a program in execution.
+- **Process** - is a program in execution.
+- **Thread** - is one of the parts of a program in execution.
 
-1. Process-based multitasking: more than one process is running simultaneously.
+1. **Process-based multitasking:** more than one process is running simultaneously.
    e.g. Word and Excel applications are running simultaneously.
 
-2. Thread-based multitasking: more than one thread is running simultaneously.
+2. **Thread-based multitasking:** more than one thread is running simultaneously.
    e.g. within a Word application, spell check, editing, cloud sync etc. all are running at the same time.
 
 Whether process-based or thread-based, a CPU can handle only one task at a time, unless it is a multiprocessor machine. It is just an impression given to the user. What actually CPU does is context switching, i.e. jump from one task to another and vice-versa.
 
-
-Process-based vs Thread-based
-=============================
+## Process-based vs Thread-based
 
 a) Threads share memory; processes are isolated by default.
 b) Thread context switching is cheaper than process context switching.
@@ -28,67 +26,59 @@ c) Communication between threads is faster because they share memory, though syn
 
 (Cheaper or low cost -> actually means less no. of system resources are used.)
 
-Applications of Multi-threading
-===============================
+## Applications of Multi-threading
+
 Java supports thread-based multitasking, which enables concurrent execution of tasks. This makes Java highly effective for server-side applications such as Servlets and JSP, where multiple client requests must be handled simultaneously. (Modern Java web servers (like Tomcat, Jetty, etc.) use a thread pool)
 
-Thread-Scheduler
-================
-a) Pre-emptive: Priority based. Higher priority thread gets chance first.
-b) Time-slice: Round-Robin. Fixed time is allocated to each thread for fairness.
+## Thread-Scheduler
+
+a) **Pre-emptive:** Priority based. Higher priority thread gets chance first.
+b) **Time-slice:** Round-Robin. Fixed time is allocated to each thread for fairness.
 
 JVM can have any scheduler, i.e. either pre-emptive or time-slice.
 It is because JVM is different for different platforms.
 
 Java has given certain mechanisms (functions) whereby you can make sure, your multi-threading application can run more or less same on any OS.
 
-
-
-
-
-Following are the imp. steps required for multithreading application
-====================================================================
+## Following are the imp. steps required for multithreading application
 
 1) Create thread/s
 2) Define thread execution body - task which is to be preformed by the thread. basically we are defining run()
 3) Register thread with the thread scheduler - done by programmer.
 4) Thread scheduler will execute the thread/s - done by thread scheduler.
 
+## Java's multi-threading support lies in
 
-Java's multi-threading support lies in
-======================================
+a) `java.lang.Thread`
+b) `java.lang.Runnable` (interface)
+c) `java.lang.Object`
 
-a) java.lang.Thread
-b) java.lang.Runnable (interface)
-c) java.lang.Object
+## Thread class
 
-
-Thread class
-=============
 - This is the most imp. class required in order to create multi-threading application.
 - Following are its methods.
 
-a) start
+a) `start`
 	is used to register thread with JVM scheduler
 
-b) run
+b) `run`
 	is used by the programmer to define thread execution body, but will be called by JVM scheduler whenever it executes a particular thread.
-	when the run() method is over, thread is dead.
+	when the `run()` method is over, thread is dead.
 
-c) sleep   (static)
+c) `sleep` (static)
 	- is used to make thread sleep for some time.
 	- other threads will be working.
 
-d) setName
+d) `setName`
 	to set the name of thread
 
-e) getName
+e) `getName`
 	to get the name of thread
 
-f) currentThread
+f) `currentThread`
 	returns the currently running thread
 
-g) setPriority
+g) `setPriority`
 	to set the priority
 	in Java priorities are numbers from 1 to 10
 	1 - minimum priority
@@ -99,13 +89,14 @@ g) setPriority
 
 	(imp: priorities are not guaranteed across different platforms.)
 
-h) getPriority
+h) `getPriority`
 	to get the priority
 
-i) join
-	join() method is used for waiting the thread in execution until the thread on which join is called is not completed.
+i) `join`
+	`join()` method is used for waiting the thread in execution until the thread on which join is called is not completed.
 
 	Example:
+```java
 	Thread t1 = new Thread(() -> {
 		// imagine t1 doing a long task, e.g. downloading a file
 		System.out.println("t1 started work...");
@@ -116,29 +107,28 @@ i) join
 	// The current thread (e.g., main) will PAUSE (STOP) here.
 	// It waits for t1 to complete its download.
 	// Only when t1 is dead/finished, main resumes.
+```
 
+- When an object implementing interface `Runnable` is used to create a thread, starting the thread causes the object's `run()` method to be called in that separately executing thread.
+- The general contract of the method `run()` is that it may take any action whatsoever.
+- see `java.lang.Thread#run()`
 
-
-- When an object implementing interface Runnable is used to create a thread, starting the thread causes the object's run() method to be called in that separately executing thread.
-- The general contract of the method run() is that it may take any action whatsoever.
-- see java.lang.Thread#run()
-
+```java
 @FunctionalInterface
 public interface Runnable {
     public abstract void run();
 }
+```
 
-
-✅ There are two ways to create multi-threading application
-===========================================================
+## ✅ There are two ways to create multi-threading application
 
 1) extends Thread class
 2) implements Runnable interface
 
-1. Extends Thread class
-=======================
+### 1. Extends Thread class
 
 e.g.
+```java
 class Th1 extends Thread
 {
 	public void run()
@@ -158,18 +148,19 @@ public class Test
 		t1.start();
 	}
 }
+```
 
-By default every Java application has main thread created by JVM. This thread is used to execute main() function.
+By default every Java application has main thread created by JVM. This thread is used to execute `main()` function.
 In the above code, there are 2 threads:
 1. main thread
 2. user defined thread i.e. t1
 
-Hence there are 2 call stacks in the above code. One for main() and other for t1 (run() method).
+Hence there are 2 call stacks in the above code. One for `main()` and other for `t1` (`run()` method).
 
 When main function is over, main thread dies, but user defined thread/s can continue. They will be taken care by JVM.
-i.e. in the above code, after "t1.start()" when main() function is over, main thread dies, but t1's execution will be managed by JVM.
+i.e. in the above code, after "`t1.start()`" when `main()` function is over, main thread dies, but t1's execution will be managed by JVM.
 
-
+```java
 class Th2 extends Thread
 {
 	public void run()
@@ -192,10 +183,11 @@ class Test2
 		t1.start();
 	}
 }
+```
 
+**Can we call `run()` directly?**
 
-Can we call run() directly?
-
+```java
 class Th3 extends Thread
 {
 	public void run()
@@ -216,12 +208,13 @@ class Test3
 		t1.run(); // here we are calling the method directly. instead of t1.start()
 	}
 }
+```
 
-We can call run() directly. But in that case it won't be thread execution, it is a normal method call. That is different call stacks won't be created.
+We can call `run()` directly. But in that case it won't be thread execution, it is a normal method call. That is different call stacks won't be created.
 
-More than one user defined-threads
-----------------------------------
+**More than one user defined-threads**
 
+```java
 class Th4 extends Thread
 {
 	public void run()
@@ -247,9 +240,9 @@ class Test4
 		t2.start();
 	}
 }
+```
 
-
-
+```java
 class Th4_a extends Thread
 {
 	public void run()
@@ -281,14 +274,16 @@ class Test4_a
 		t2.start();
 	}
 }
+```
 
-Explanation:
-- Both threads (t1 and t2) will execute the run() method simultaneously.
-- Since the loop is "for(int i=0; i<5; i++)", each thread will execute the loop 5 times.
+**Explanation:**
+- Both threads (t1 and t2) will execute the `run()` method simultaneously.
+- Since the loop is "`for(int i=0; i<5; i++)`", each thread will execute the loop 5 times.
 - Total 10 lines will be printed (5 by 'first' and 5 by 'second').
-- Due to 'Thread.sleep(100)', the threads will yield control, allowing them to interleave (mix) in the output.
+- Due to '`Thread.sleep(100)`', the threads will yield control, allowing them to interleave (mix) in the output.
 
-Sample Output (Order may vary):
+**Sample Output (Order may vary):**
+```
 Hello  first	0
 Hello  second	0
 Hello  first	1
@@ -299,10 +294,11 @@ Hello  first	3
 Hello  second	3
 Hello  first	4
 Hello  second	4
+```
 
+### 2. Implements Runnable interface
 
-2. Implements Runnable interface
-===============================
+```java
 class Th5 implements Runnable
 {
 	public void run()
@@ -325,36 +321,33 @@ class Test5
 		t2.start();
 	}
 }
+```
 
-STEPS TO CREATE THREAD USING Runnable
-======================================
+#### STEPS TO CREATE THREAD USING Runnable
 
-a) Define a class which implements Runnable
-b) Define run()
-c) Instantiate the class which impl. Runnable
-d) Instantiate Thread class by passing above instance (child of Runnable)
-e) Register Thread class instance/s
+a) Define a class which implements `Runnable`
+b) Define `run()`
+c) Instantiate the class which impl. `Runnable`
+d) Instantiate `Thread` class by passing above instance (child of `Runnable`)
+e) Register `Thread` class instance/s
 
+**Revise "extends Thread" and "implements Runnable"**
 
-Revise "extends Thread" and "implements Runnable"
+How `Thread` class is related to `Runnable` interface?
 
-How Thread class is related to Runnable interface?
+Ans- `Thread` class implements `Runnable`
 
-Ans- Thread class implements Runnable
+## Difference between extends Thread and implements Runnable
 
+**What is the use of implements Runnable?**
+If your class is already extending some class, you can't say extends `Thread`, because multiple inheritance is not allowed in Java. In that case you have to go for implements `Runnable`.
 
-Difference between extends Thread and implements Runnable
-==========================================================
-
-What is the use of implements Runnable?
-	If your class is already extending some class, you can't say extends Thread, because multiple inheritance is not allowed in Java. In that case you have to go for implements Runnable.
-
-
-RACE CONDITION
-===============
+---
+## RACE CONDITION
 
 The example `Th5` shows that two threads can share the same `Runnable` object. To prove they share the same memory:
 
+```java
 class SharedMemory implements Runnable {
     int count = 0; // Shared variable
 
@@ -375,40 +368,42 @@ class TestShared {
         t2.start();
     }
 }
+```
 
 In this example, both threads are incrementing the SAME `count` variable. This proves that threads can share memory.
 
 When threads share the memory there is a risk of "race condition".
 
 e.g. The "Bank Account" Problem:
-	Imagine an account with balance = 1000.
-	Thread A wants to withdraw 500.
-	Thread B wants to withdraw 500.
+Imagine an account with balance = 1000.
+Thread A wants to withdraw 500.
+Thread B wants to withdraw 500.
 
-	The Logical Steps for a Withdrawal:
-	1. Read current balance.
-	2. Check if (balance >= withdrawal_amount).
-	3. Subtract amount from balance.
-	4. Write new balance back to memory.
+**The Logical Steps for a Withdrawal:**
+1. Read current balance.
+2. Check if (balance >= withdrawal_amount).
+3. Subtract amount from balance.
+4. Write new balance back to memory.
 
-	The Race Condition Scenario:
-	- Thread A reads balance (1000).
-	- Thread B reads balance (1000) *before A could update it*.
-	- Thread A checks 1000 >= 500 (Yes), subtracts, and writes 500.
-	- Thread B checks 1000 >= 500 (Yes), subtracts, and writes 500.
+**The Race Condition Scenario:**
+- Thread A reads balance (1000).
+- Thread B reads balance (1000) *before A could update it*.
+- Thread A checks 1000 >= 500 (Yes), subtracts, and writes 500.
+- Thread B checks 1000 >= 500 (Yes), subtracts, and writes 500.
 
-	End Result: You withdrew 1000 total, but the balance is still 500 instead of 0!
+End Result: You withdrew 1000 total, but the balance is still 500 instead of 0!
 
-Race condition means
-	While one thread is working on the "Read-Modify-Write" cycle, another thread interrupts and works on the same data, leading to inconsistent results.
+**Race condition means**
+While one thread is working on the "Read-Modify-Write" cycle, another thread interrupts and works on the same data, leading to inconsistent results.
 
 Race condition always leads to Data Corruption.
 
-How do we avoid Race condition?
-	We will have to make sure that the entire "Read-Modify-Write" operation is ATOMIC (happens as one single unit). In java we can achieve this by using "synchronization".
+**How do we avoid Race condition?**
+We will have to make sure that the entire "Read-Modify-Write" operation is ATOMIC (happens as one single unit). In java we can achieve this by using "synchronization".
 
-	"synchronization" is a solution to the race condition.
+"synchronization" is a solution to the race condition.
 
+```java
 // Synchronized Solution for Bank Account Problem
 class BankAccount {
     int balance = 1000;
@@ -457,7 +452,9 @@ class TestBank {
         t2.start();
     }
 }
+```
 
+```java
 public class Th6 implements Runnable
 {
 	synchronized public void run()
@@ -476,7 +473,9 @@ public class Th6 implements Runnable
 		t2.start();
 	}
 }
+```
 
+```java
 public class Th7 implements Runnable
 {
 	public void run()
@@ -498,17 +497,14 @@ public class Th7 implements Runnable
 		t2.start();
 	}
 }
+```
 
+## synchronized keyword
+**method** :- all the statements are protected.
 
-synchronized keyword
-	method :- all the statements are protected.
+**block** :- only those statements are protected which are given inside synchronized block.
 
-	block :- only those statements are protected which are given inside synchronized block.
-
-
-
-What exactly happens when we use synchronized keyword?
-=======================================================
+## What exactly happens when we use synchronized keyword?
 
 - There is a concept of object lock.
 - In Java every object has a lock. This lock can be accessed by only one thread at a time.
@@ -518,7 +514,7 @@ What exactly happens when we use synchronized keyword?
 - Whichever thread executes the synchronized method first, it acquires the lock. Other thread/s have to be in "seeking lock state".
 - Once a thread acquires a lock on an object, it can have control on all the non-static synchronized methods of that object.
 
-
+```java
 public class Th8 implements Runnable
 {
 	public void run()
@@ -541,69 +537,65 @@ public class Th8 implements Runnable
 		t2.start();
 	}
 }
+```
 
+## The Problem: Holding Lock While Waiting (Deadlock / Liveness Failure)
 
-The Problem: Holding Lock While Waiting (Deadlock / Liveness Failure)
-=====================================================================
 There are two main types of Deadlocks.
 
-1. Single Resource Deadlock (Holding lock while waiting)
+1. **Single Resource Deadlock (Holding lock while waiting)**
 	- A single deadlock occurs when two or more threads are waiting for a single shared resource (or each other) in such a way that none of them can proceed.
-	Example :
+
+	**Example :**
 		Thread T1 locks Resource R
 		Thread T2 waits for Resource R
 
 		T1 never releases R → T2 waits forever
 
-
-2. Circular Wait Deadlock (Cyclic Dependency)
+2. **Circular Wait Deadlock (Cyclic Dependency)**
 	A circular deadlock occurs when two or more threads form a cycle, where each thread holds one resource and waits for another resource held by the next thread in the cycle.
-	Example:
+	**Example:**
 		T1 → holds R1, waits for R2
 		T2 → holds R2, waits for R3
 		T3 → holds R3, waits for R1
 
 		No thread can move → 💥 deadlock
 
-Solution: Inter-thread Communication (wait and notify)
+**Solution: Inter-thread Communication (wait and notify)**
 [NOTE: This solution specifically helps with Type 1 (Waiting for condition). Type 2 requires careful lock ordering (always lock DB then File), but wait/notify is primarily for state changes.]
 
 i.e. if the thread realizes it can not continue, it should come out of synchronized method or block and release the lock. Now other thread will acquire the lock, execute the code and allow the first thread to resume.
 
-
 Following are the methods used for communication bet'n threads.
 
-a) wait
+a) `wait`
 	it will make thread, release the lock and go to wait pool.
 
-b) notify
+b) `notify`
 	it will make the thread to move from wait pool to seeking lock state.
 
-c) notifyAll
+c) `notifyAll`
 	it will make all the threads to move from wait pool to seeking lock state.
 
-These methods are defined in "java.lang.Object" class and are final so u can not override them.
+These methods are defined in "`java.lang.Object`" class and are final so u can not override them.
 
 These methods must be called from synchronized method or block.
 
-Difference bet'n wait and sleep
+**Difference bet'n wait and sleep**
 
-		wait releases the lock on an object, sleep does not.
+`wait` releases the lock on an object, `sleep` does not.
 
-
-
-Thread-safety
+## Thread-safety
 
 Thread-safe classes are those classes, which contain **synchronized non-static methods**.
 
+## What is class lock?
 
-What is class lock?
-
-- Every class has a lock. It is actually a lock on an instance of class Class. This is because, whenever any class is loaded in Java, it is represented by instance of class Class.
+- Every class has a lock. It is actually a lock on an instance of class `Class`. This is because, whenever any class is loaded in Java, it is represented by instance of class `Class`.
 - The class lock comes into picture in case of **synchronized static methods**.
 - Thread which gives a call to synchronized static method can acquire a class lock. Only after thread complete that static method, lock is released.
 
-
+```java
 public class Th9 implements Runnable
 {
 	public void run()
@@ -627,20 +619,20 @@ public class Th9 implements Runnable
 		System.out.println("Both the threads are over");
 	}
 }
+```
 
+In the above code "`Both the threads are over`" will not be displayed in the end because it is a statement of main. It is because as we know, main thread completes first and user defined thread are continue, they are taken care by JVM.
+If we want that "Both the threads are over" should be displayed at the end, we have to make sure that main thread will complete only after the completion of "`t1`" and "`t2`".
 
-In the above code "Both the threads are over" will not be displayed in the end because it is a statement of main. It is because as we know, main thread completes first and user defined thread are continue, they are taken care by JVM.
-If we want that "Both the threads are over" should be displayed at the end, we have to make sure that main thread will complete only after the completion of "t1" and "t2".
+**Solution is "`join()`" method.**
 
-Solution is "join()" method.
+### join() method
 
-join() method
+`join` method makes caller thread (main thread) to wait for called thread (t1 and t2) to complete.
 
-join method makes caller thread (main thread) to wait for called thread (t1 and t2) to complete.
+**how join works?**
 
-how join works?
-
-
+```java
 public class Th9_a implements Runnable
 {
 	public void run()
@@ -672,39 +664,37 @@ public class Th9_a implements Runnable
 		System.out.println("Both the threads are over");
 	}
 }
+```
 
-In the above code, when main() function calls "t1.join()" for example, it says "join me at your end".
-Since main() is calling "t1.join()" and "t2.join()", it is added to the end of both t1 and t2. That's why now the statement "Both the threads are over" is getting executed at the end.
+In the above code, when `main()` function calls "`t1.join()`" for example, it says "join me at your end".
+Since `main()` is calling "`t1.join()`" and "`t2.join()`", it is added to the end of both t1 and t2. That's why now the statement "`Both the threads are over`" is getting executed at the end.
 
+Thinking of blocked state:
+Whenever thread is in a blocked state ie.due to sleep, join or wait methods, it can get interrupted by other threads. Whenever blocked thread gets interrupted, it raises "`InterruptedException`".
+ But this can not be predictable, hence java enforces you to either handle or declare `InterruptedException` whenever you invoke the above methods.
 
+**Thread states**
 
-Whenever thread is in a blocked state ie.due to sleep, join or wait methods, it can get interrupted by other threads. Whenever blocked thread gets interrupted, it raises "InterruptedException".
- But this can not be predictable, hence java enforces you to either handle or declare InterruptedException whenever you invoke the above methods.
+- born
+- runnable
+- running
+- blocked
+- dead
 
-Thread states
+## User threads and Daemon threads
 
-	born
-	runnable
-	running
-	blocked
-	dead
+**User threads**
+- user defined threads
+- main thread
 
-
-User threads and Daemon threads
-
-User threads
-	user defined threads
-	main thread
-
-Daemon thread
-	e.g. garbage collection thread (low priority thread)
+**Daemon thread**
+- e.g. garbage collection thread (low priority thread)
 
 Daemon threads are the threads which are at the mercy of user thread/s. Their only purpose is to serve user defined thread/s. When there is no user thread alive, Daemon thread will die.
 
+## Example of Garbage Collection Thread
 
-Example of Garbage Collection Thread
-
-
+```java
 public class Sample
 {
 
@@ -735,27 +725,26 @@ public class Sample
 	}
 
 }
+```
 
+**output:**
 
-
-
-output:
-
-
+```
 inside finalized method
 Thread[Finalizer,8,system]
 true
 Done by main
+```
 
+**Difference between**
 
-Difference between
+`System.gc()` and `Runtime.getRuntime.gc()`
 
-	System.gc() and Runtime.getRuntime.gc()
+inside "`System`" class we have following code:
 
-inside "System" class we have following code:
-
-
+```java
 public static void gc()
 {
         Runtime.getRuntime().gc();
 }
+```
