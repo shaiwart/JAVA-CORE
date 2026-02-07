@@ -114,13 +114,13 @@ Runnable interface: interface which contains abstract method
 
 ✅ There are two ways to create multi-threading application.
 
-1) extends Thread
-2) implements Runnable
+1) extends Thread class
+2) implements Runnable interface
 
+1. Extends Thread class
+=======================
 
 e.g.
-extends Thread
-
 class Th1 extends Thread
 {
 	public void run()
@@ -283,7 +283,7 @@ Hello  first	4
 Hello  second	4
 
 
-Implements Runnable interface
+2. Implements Runnable interface
 ===============================
 class Th5 implements Runnable
 {
