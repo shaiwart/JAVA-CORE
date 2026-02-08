@@ -727,7 +727,8 @@ public class Th9_a implements Runnable {
 }
 ```
 
-In the above code, when `main()` function calls "`t1.join()`" for example, it says "join me at your end".
+In the above code, when `main()` function calls "`t1.join()`" for example, it says `join me at your end`.
+
 Since `main()` is calling "`t1.join()`" and "`t2.join()`", it is added to the end of both t1 and t2. That's why now the statement "`Both the threads are over`" is getting executed at the end.
 
 Thinking of blocked state:
