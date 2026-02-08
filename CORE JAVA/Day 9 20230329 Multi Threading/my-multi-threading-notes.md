@@ -94,8 +94,8 @@ h) `getPriority`
 
 i) `join`
 	`join()` method is used for waiting the thread in execution until the thread on which join is called is not completed.
-
 	Example:
+
 ```java
 	Thread t1 = new Thread(() -> {
 		// imagine t1 doing a long task, e.g. downloading a file
@@ -108,24 +108,13 @@ i) `join`
 	// It waits for t1 to complete its download.
 	// Only when t1 is dead/finished, main resumes.
 ```
-
-- When an object implementing interface `Runnable` is used to create a thread, starting the thread causes the object's `run()` method to be called in that separately executing thread.
-- The general contract of the method `run()` is that it may take any action whatsoever.
-- see `java.lang.Thread#run()`
-
-```java
-@FunctionalInterface
-public interface Runnable {
-    public abstract void run();
-}
-```
-
+---
 ## ✅ There are two ways to create multi-threading application
 
 1) extends Thread class
 2) implements Runnable interface
 
-### 1. Extends Thread class
+## 1. Extends Thread class
 
 e.g.
 ```java
@@ -145,7 +134,7 @@ public class Test
 	public static void main(String args[])
 	{
 		Th1 t1 = new Th1();
-		t1.start();
+		t1.start(); // see we don't call the run() method. It will be called by jvm or thread scheduler.
 	}
 }
 ```
@@ -155,10 +144,9 @@ In the above code, there are 2 threads:
 1. main thread
 2. user defined thread i.e. t1
 
-Hence there are 2 call stacks in the above code. One for `main()` and other for `t1` (`run()` method).
+> Hence there are 2 call stacks in the above code. One for `main()` and other for `t1` (`run()` method).
 
-When main function is over, main thread dies, but user defined thread/s can continue. They will be taken care by JVM.
-i.e. in the above code, after "`t1.start()`" when `main()` function is over, main thread dies, but t1's execution will be managed by JVM.
+> When main function is over, main thread dies, but user defined thread/s can continue. They will be taken care by JVM. In the above code, after "`t1.start()`" when `main()` function is over, main thread dies, but t1's execution will be managed by JVM.
 
 ```java
 class Th2 extends Thread
@@ -210,7 +198,7 @@ class Test3
 }
 ```
 
-We can call `run()` directly. But in that case it won't be thread execution, it is a normal method call. That is different call stacks won't be created.
+We can call `run()` directly. But in that case it won't be thread execution, it is a normal method call. That is **different call stacks won't be created**.
 
 **More than one user defined-threads**
 
@@ -243,29 +231,22 @@ class Test4
 ```
 
 ```java
-class Th4_a extends Thread
-{
-	public void run()
-	{
-		for(int i=0; i<5; i++)
-		{
+class Th4_a extends Thread {
+	public void run() {
+		for(int i=0; i<5; i++) {
 			System.out.println("Hello  " + Thread.currentThread().getName() + "\t" + i);
-			try
-			{
+			try {
 				Thread.sleep(100);
 			}
-			catch(InterruptedException ie)
-			{
+			catch(InterruptedException ie) {
 				ie.printStackTrace();
 			}
 		}
 	}
 }
 
-class Test4_a
-{
-	public static void main(String args[])
-	{
+class Test4_a {
+	public static void main(String args[]) {
 		Th4_a t1 = new Th4_a();
 		Th4_a t2 = new Th4_a();
 		t1.setName("first");
@@ -296,7 +277,7 @@ Hello  first	4
 Hello  second	4
 ```
 
-### 2. Implements Runnable interface
+## 2. Implements Runnable interface
 
 ```java
 class Th5 implements Runnable
@@ -320,6 +301,17 @@ class Test5
 		t1.start();
 		t2.start();
 	}
+}
+```
+
+- When an object implementing interface `Runnable` is used to create a thread, starting the thread causes the object's `run()` method to be called in that separately executing thread.
+- The general contract of the method `run()` is that it may take any action whatsoever.
+- see `java.lang.Thread#run()`
+
+```java
+@FunctionalInterface
+public interface Runnable {
+    public abstract void run();
 }
 ```
 
@@ -404,50 +396,83 @@ We will have to make sure that the entire "Read-Modify-Write" operation is ATOMI
 "synchronization" is a solution to the race condition.
 
 ```java
-// Synchronized Solution for Bank Account Problem
+package package1;
+
+//Synchronized Solution for Bank Account Problem
 class BankAccount {
-    int balance = 1000;
+	int balance = 1000;
 
-    // 'synchronized' ensures only one thread can enter this method at a time
-    synchronized void withdraw(int amount) {
-        if (balance >= amount) {
-            System.out.println(Thread.currentThread().getName() + " is accessing balance.");
+	// 'synchronized' ensures only one thread can enter this method at a time
+	synchronized void withdraw(int amount) {
+		if (balance >= amount) {
+			System.out.println(Thread.currentThread().getName() + " is accessing balance.");
 
-            // Simulating some processing time to allow context switching (if it wasn't sync)
-            try { Thread.sleep(100); } catch (Exception e) {}
+			// Simulating some processing time to allow context switching (if it wasn't sync)
+			try {
+				Thread.sleep(2000);
+			} catch (Exception e) {
+			}
 
-            balance = balance - amount;
-            System.out.println(Thread.currentThread().getName() + " withdrew " + amount + ". Rem Balance: " + balance);
-        } else {
-            System.out.println(Thread.currentThread().getName() + " - Insufficient funds!");
-        }
-    }
+			balance = balance - amount;
+			System.out.println(Thread.currentThread().getName() + " withdrew " + amount + ". Rem Balance: " + balance);
+		} else {
+			System.out.println(Thread.currentThread().getName() + " - Insufficient funds!");
+		}
+	}
 }
 
-// Custom Thread class to perform withdrawal
+//Custom Thread class to perform withdrawal
 class WithdrawThread extends Thread {
-    BankAccount account;
-    int amount;
+	BankAccount account;
+	int amount;
 
-    WithdrawThread(BankAccount account, int amount, String name) {
-        super(name);
-        this.account = account;
-        this.amount = amount;
-    }
+	WithdrawThread(BankAccount account, int amount, String name) {
+		super(name);
+		this.account = account;
+		this.amount = amount;
+	}
 
-    public void run() {
-        account.withdraw(amount);
-    }
+	public void run() {
+		account.withdraw(amount);
+	}
 }
 
 class TestBank {
+	public static void main(String args[]) {
+		BankAccount account = new BankAccount(); // ONE shared account object
+
+		// Create threads using the custom class
+		WithdrawThread t1 = new WithdrawThread(account, 500, "Thread-A");
+		WithdrawThread t2 = new WithdrawThread(account, 500, "Thread-B");
+		WithdrawThread t3 = new WithdrawThread(account, 500, "Thread-C");
+
+		t1.start();
+		t2.start();
+		t3.start();
+	}
+}
+
+
+// output
+Thread-A is accessing balance.
+Thread-A withdrew 500. Rem Balance: 500
+Thread-C is accessing balance.
+Thread-C withdrew 500. Rem Balance: 0
+Thread-B - Insufficient funds! // findout later : why always B get insufficient fund in the current setup.
+```
+
+```java
+public class Th6 implements Runnable {
+    // method
+    synchronized public void run() {
+        for (int i = 0; i < 5; i++) {
+            System.out.println("Hello" + i);
+        }
+    }
     public static void main(String args[]) {
-        BankAccount account = new BankAccount(); // ONE shared account object
-
-        // Create threads using the custom class
-        WithdrawThread t1 = new WithdrawThread(account, 500, "Thread-A");
-        WithdrawThread t2 = new WithdrawThread(account, 500, "Thread-B");
-
+        Th6 ob = new Th6();
+        Thread t1 = new Thread(ob);
+        Thread t2 = new Thread(ob);
         t1.start();
         t2.start();
     }
@@ -455,47 +480,22 @@ class TestBank {
 ```
 
 ```java
-public class Th6 implements Runnable
-{
-	synchronized public void run()
-	{
-		for(int i=0; i<5; i++)
-		{
-			System.out.println("Hello" + i);
-		}
-	}
-	public static void main(String args[])
-	{
-		Th6 ob = new Th6();
-		Thread t1 = new Thread(ob);
-		Thread t2 = new Thread(ob);
-		t1.start();
-		t2.start();
-	}
-}
-```
-
-```java
-public class Th7 implements Runnable
-{
-	public void run()
-	{
-		synchronized(this)
-		{
-			for(int i=0; i<5; i++)
-			{
-				System.out.println("Hello" + i);
-			}
-		}
-	}
-	public static void main(String args[])
-	{
-		Th7 ob = new Th7();
-		Thread t1 = new Thread(ob);
-		Thread t2 = new Thread(ob);
-		t1.start();
-		t2.start();
-	}
+public class Th7 implements Runnable {
+    public void run() {
+        // block
+        synchronized (this) {
+            for (int i = 0; i < 5; i++) {
+                System.out.println("Hello" + i);
+            }
+        }
+    }
+    public static void main(String args[]) {
+        Th7 ob = new Th7();
+        Thread t1 = new Thread(ob);
+        Thread t2 = new Thread(ob);
+        t1.start();
+        t2.start();
+    }
 }
 ```
 
@@ -506,39 +506,112 @@ public class Th7 implements Runnable
 
 ## What exactly happens when we use synchronized keyword?
 
-- There is a concept of object lock.
+- There is a concept of `object lock`.
 - In Java every object has a lock. This lock can be accessed by only one thread at a time.
 - The lock will be released as soon as the thread completes its job and thus another thread can acquire the lock.
-- Acquiring and Releasing lock happens automatically.
-- This lock comes into picture only when object has got non-static synchronized method/s or block.
-- Whichever thread executes the synchronized method first, it acquires the lock. Other thread/s have to be in "seeking lock state".
+- `Acquiring` and `Releasing` lock happens automatically.
+- This lock comes into picture only when object has got `non-static synchronized method/s or block`.
+- Whichever thread executes the synchronized method first, it acquires the lock. Other thread/s have to be in `seeking lock state`.
 - Once a thread acquires a lock on an object, it can have control on all the non-static synchronized methods of that object.
+> TODO : Why only non-static ?
 
 ```java
-public class Th8 implements Runnable
-{
-	public void run()
-	{
-		synchronized(this)
-		{
-			for(int i=0; i<5; i++)
-			{
-				System.out.println("Hello" + i);
-			}
-		}
-	}
-	public static void main(String args[])
-	{
-		Th8 ob = new Th8();
-		Th8 ob1 = new Th8();
-		Thread t1 = new Thread(ob);
-		Thread t2 = new Thread(ob1);
-		t1.start();
-		t2.start();
-	}
+public class Th8 implements Runnable {
+    public void run() {
+        synchronized (this) {
+            for (int i = 0; i < 5; i++) {
+                System.out.println("Hello" + i);
+            }
+        }
+    }
+    public static void main(String args[]) {
+        Th8 ob = new Th8();
+        Th8 ob1 = new Th8();
+        Thread t1 = new Thread(ob);
+        Thread t2 = new Thread(ob1);
+        t1.start();
+        t2.start();
+    }
 }
 ```
 
+## Class Level Lock and Object Level Lock in Multithreading
+#### Resources
+- https://blog.stackademic.com/class-level-lock-and-object-level-lock-in-multithreading-6f9c930c1d6a
+- https://medium.com/@amitvsolutions/javas-synchronization-toolkit-the-locking-mechanism-882fbbe57921 (very nice resource)
+- https://web.mit.edu/6.005/www/fa15/classes/23-locks/
+
+#### 1. Class level lock
+Class level lock prevents multiple threads to enter in synchronized block in any of all available instances of the class on runtime. This means if in runtime there are 100 instances of DemoClass, then only one thread will be able to execute demoMethod() in any one of instance at a time, and all other instances will be locked for other threads.
+
+Class level locking should always be done to make static data thread safe. As we know that static keyword associate data of methods to class level, so use locking at static fields or methods to make it on class level.
+
+```java
+public class DemoClass {
+    // Method is static
+    public synchronized static void demoMethod() {}
+}
+
+// or
+public class DemoClass {
+    public void demoMethod() {
+        // Acquire lock on .class reference
+        synchronized (DemoClass.class) {
+            // other thread safe code
+        }
+    }
+}
+
+// or
+public class DemoClass {
+    private final static Object lock = new Object(); // observe : this is final
+
+    public void demoMethod() {
+        // Lock object is static
+        synchronized (lock) {
+            // other thread safe code
+        }
+    }
+}
+```
+
+#### 2. Object level lock
+Object level lock is mechanism when we want to synchronize a non-static method or non-static code block such that only one thread will be able to execute the code block on given instance of the class. This should always be done to make instance level data thread safe.
+
+```java
+public class DemoClass {
+    public synchronized void demoMethod() {}
+}
+
+// or
+public class DemoClass {
+    public void demoMethod() {
+        synchronized (this) {
+            // other thread safe code
+        }
+    }
+}
+
+// or
+public class DemoClass {
+    private final Object lock = new Object(); // observe : this is final
+    public void demoMethod() {
+        synchronized (lock) {
+            // other thread safe code
+        }
+    }
+}
+```
+
+#### # Object level lock & class level lock — Important points
+- Java synchronized keyword is re-entrant in nature it means if a synchronized method calls another synchronized method which requires same lock then current thread which is holding lock can enter into that method without acquiring lock.
+- Java synchronization will throw `NullPointerException` if object used in synchronized block is null. For example, in above code sample if lock is initialized as null, the “synchronized (lock)” will throw `NullPointerException`.
+- Synchronized methods in Java put a performance cost on your application. So use synchronization when it is absolutely required. Also, consider using synchronized code blocks for synchronizing only critical section of your code.
+- According to the Java language specification you can not use synchronized keyword with `constructor`. It is illegal and result in compilation error.
+- `Do not synchronize on non final field` on synchronized block in Java. because reference of non final field may change any time and then different thread might synchronizing on different objects i.e. no synchronization at all.
+
+
+---
 ## The Problem: Holding Lock While Waiting (Deadlock / Liveness Failure)
 
 There are two main types of Deadlocks.
@@ -561,10 +634,12 @@ There are two main types of Deadlocks.
 
 		No thread can move → 💥 deadlock
 
-**Solution: Inter-thread Communication (wait and notify)**
+### # Solution: Inter-thread Communication (wait and notify)
 [NOTE: This solution specifically helps with Type 1 (Waiting for condition). Type 2 requires careful lock ordering (always lock DB then File), but wait/notify is primarily for state changes.]
 
 i.e. if the thread realizes it can not continue, it should come out of synchronized method or block and release the lock. Now other thread will acquire the lock, execute the code and allow the first thread to resume.
+
+> ⚠️ I need help from someone to understand this in detail.
 
 Following are the methods used for communication bet'n threads.
 
@@ -579,11 +654,10 @@ c) `notifyAll`
 
 These methods are defined in "`java.lang.Object`" class and are final so u can not override them.
 
-These methods must be called from synchronized method or block.
+These methods **must be called from synchronized method or block**.
 
-**Difference bet'n wait and sleep**
-
-`wait` releases the lock on an object, `sleep` does not.
+#### Difference bet'n wait and sleep
+- `wait` releases the lock on an object, `sleep` does not.
 
 ## Thread-safety
 
@@ -596,28 +670,23 @@ Thread-safe classes are those classes, which contain **synchronized non-static m
 - Thread which gives a call to synchronized static method can acquire a class lock. Only after thread complete that static method, lock is released.
 
 ```java
-public class Th9 implements Runnable
-{
-	public void run()
-	{
-		synchronized(this)
-		{
-			for(int i=0; i<5; i++)
-			{
-				System.out.println("Hello" + i);
-			}
-		}
-	}
-	public static void main(String args[])
-	{
-		Th9 ob = new Th9();
-		Thread t1 = new Thread(ob);
-		Thread t2 = new Thread(ob);
-		t1.start();
-		t2.start();
+public class Th9 implements Runnable {
+    public void run() {
+        synchronized (this) {
+            for (int i = 0; i < 5; i++) {
+                System.out.println("Hello" + i);
+            }
+        }
+    }
+    public static void main(String args[]) {
+        Th9 ob = new Th9();
+        Thread t1 = new Thread(ob);
+        Thread t2 = new Thread(ob);
+        t1.start();
+        t2.start();
 
-		System.out.println("Both the threads are over");
-	}
+        System.out.println("Both the threads are over");
+    }
 }
 ```
 
@@ -633,36 +702,28 @@ If we want that "Both the threads are over" should be displayed at the end, we h
 **how join works?**
 
 ```java
-public class Th9_a implements Runnable
-{
-	public void run()
-	{
-		synchronized(this)
-		{
-			for(int i=0; i<5; i++)
-			{
-				System.out.println("Hello" + i);
-			}
-		}
-	}
-	public static void main(String args[])
-	{
-		Th9 ob = new Th9();
-		Th9 ob1 = new Th9();
-		Thread t1 = new Thread(ob);
-		Thread t2 = new Thread(ob1);
-		t1.start();
-		t2.start();
-		try
-		{
-			t1.join();
-			t2.join();
-		}
-		catch(InterruptedException e)
-		{
-		}
-		System.out.println("Both the threads are over");
-	}
+public class Th9_a implements Runnable {
+    public void run() {
+        synchronized (this) {
+            for (int i = 0; i < 5; i++) {
+                System.out.println("Hello" + i);
+            }
+        }
+    }
+    public static void main(String args[]) {
+        Th9 ob = new Th9();
+        Th9 ob1 = new Th9();
+        Thread t1 = new Thread(ob);
+        Thread t2 = new Thread(ob1);
+        t1.start();
+        t2.start();
+        try {
+            t1.join();
+            t2.join();
+        } catch (InterruptedException e) {
+        }
+        System.out.println("Both the threads are over");
+    }
 }
 ```
 
@@ -673,14 +734,19 @@ Thinking of blocked state:
 Whenever thread is in a blocked state ie.due to sleep, join or wait methods, it can get interrupted by other threads. Whenever blocked thread gets interrupted, it raises "`InterruptedException`".
  But this can not be predictable, hence java enforces you to either handle or declare `InterruptedException` whenever you invoke the above methods.
 
-**Thread states**
+## Thread states
 
+#### Resources
+- https://codedost.com/java/multithreading-in-java/life-cycle-of-a-thread-in-java/
+
+#### Thread states
 - born
 - runnable
 - running
 - blocked
 - dead
 
+---
 ## User threads and Daemon threads
 
 **User threads**
@@ -692,38 +758,29 @@ Whenever thread is in a blocked state ie.due to sleep, join or wait methods, it 
 
 Daemon threads are the threads which are at the mercy of user thread/s. Their only purpose is to serve user defined thread/s. When there is no user thread alive, Daemon thread will die.
 
-## Example of Garbage Collection Thread
+#### Example of Garbage Collection Thread
 
 ```java
-public class Sample
-{
+public class Sample {
+    public static void main(String[] args) {
+        Sample s1 = new Sample();
+        s1 = null;
+        System.gc();
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException ie) {
+            ie.printStackTrace();
+        }
 
-	public static void main(String[] args) {
-		Sample s1 = new Sample();
-		s1 = null;
-		System.gc();
-		try
-		{
-			Thread.sleep(100);
-		}
-		catch(InterruptedException ie)
-		{
-			ie.printStackTrace();
-		}
+        // Runtime.getRuntime().gc();
+        System.out.println("Done By\t" + Thread.currentThread().getName());
+    }
 
-		//Runtime.getRuntime().gc();
-		System.out.println("Done By\t" + Thread.currentThread().getName());
-
-	}
-
-	protected void finalize() throws Throwable
-	{
-		System.out.println("inside finalized method");
-		System.out.println(Thread.currentThread());
-		System.out.println(Thread.currentThread().isDaemon());
-
-	}
-
+    protected void finalize() throws Throwable {
+        System.out.println("inside finalized method");
+        System.out.println(Thread.currentThread());
+        System.out.println(Thread.currentThread().isDaemon());
+    }
 }
 ```
 
@@ -743,8 +800,17 @@ Done by main
 inside "`System`" class we have following code:
 
 ```java
-public static void gc()
-{
-        Runtime.getRuntime().gc();
+public static void gc() {
+	Runtime.getRuntime().gc();
 }
 ```
+
+- now also add features :
+1. download transcript of single video
+	- downloaded file will be simple .txt file. (not zip)
+2. download transcript of youtube playlist
+	- downloaded file will be .zip file.
+
+- have three diff modes. (make horizontal)
+- in case of playlist and youtube channel link, keep the topN videos filter.
+- always keep the shorts include/exclude
