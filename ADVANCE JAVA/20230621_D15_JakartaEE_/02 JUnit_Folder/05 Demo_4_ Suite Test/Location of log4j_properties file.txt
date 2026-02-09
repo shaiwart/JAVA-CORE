@@ -1,0 +1,1 @@
+log4j.properties file must be placed inside "src" folder of your eclipse project.

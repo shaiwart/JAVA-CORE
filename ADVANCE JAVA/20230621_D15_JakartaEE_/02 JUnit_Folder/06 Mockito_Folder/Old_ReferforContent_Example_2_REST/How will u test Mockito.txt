@@ -1,0 +1,24 @@
+Go to ProductManagerImpl class and change "getProducts()" method as follows:
+
+@Override
+	public List<Product> getProducts() {
+		// TODO Auto-generated method stub
+	//	return dao.getProducts();
+		return null;
+	}
+
+
+it means ur getProducts() does not use "dao"
+
+now when u run ProductManagerTest class , the test will fail.
+
+it is because 
+
+doReturn(expectedProducts).when(dao).getProducts();
+
+        // when
+        List<Product> actualProducts = productManager.getProducts();
+
+
+here "actualProducts" will return null which is not equal to "expectedProducts"
+

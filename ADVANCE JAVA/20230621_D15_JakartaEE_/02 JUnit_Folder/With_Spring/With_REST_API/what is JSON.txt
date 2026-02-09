@@ -1,0 +1,1 @@
+JSON stands for JavaScript Object Notation, it is a lightweight data-interchange format. You can see many Java applications started to throw away XML format and start using JSON as a new data-interchange format. Java is all about object, often times, you need to convert an object into JSON format for data-interchange or vice verse.

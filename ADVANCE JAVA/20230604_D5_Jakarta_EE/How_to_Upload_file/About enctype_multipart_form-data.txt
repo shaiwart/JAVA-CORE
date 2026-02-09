@@ -1,0 +1,1 @@
+enctype='multipart/form-data' means that no characters will be encoded. that is why this type is used while uploading files to server. So multipart/form-data is used when a form requires binary data, like the contents of a file, to be uploaded.

@@ -1,0 +1,43 @@
+1) Module.html
+	radio buttons   "Java" ,"C++", "Oracle"
+when you select a particular module and click on submit control should go to "MainServ" Servlet
+		
+		String str=request.getParameter("myradio");
+
+MainServ servlet will redirect the response to 
+	JavaServ - if request parameter is "Java"
+	CppServ  -  ........................"C++"
+	OracleServ -........................ "Oracle"
+
+
+
+2) module.html
+	dropdown list contains "Java", "C++","Oracle"
+	
+when you select a particular module and click on submit control should go to "MainServ" Servlet
+
+	String str=request.getParameter("mydropdown");
+
+MainServ servlet will forward the request to 
+	JavaServ - if request parameter is "Java"
+	CppServ  -  ........................"C++"
+	OracleServ -........................ "Oracle"
+
+
+3) Modules.html
+	checkboxes   "Java" , "C++" , "Oracle", "DotNet"
+
+When you select modules and click on submit control should go to "MainServ" servlet.
+
+	String arr[]=request.getParameterValues("mycheckbox");
+
+MainServ servlet should retrieve modules selected and store them inside "ArrayList" and store this ArrayList inside session.
+
+DispServ servlet should retrieve the session, retrieve ArrayList from session and display its contents.
+
+ 
+
+
+
+
+

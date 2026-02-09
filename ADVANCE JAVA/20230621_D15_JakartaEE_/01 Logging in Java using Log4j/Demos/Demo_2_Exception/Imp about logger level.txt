@@ -1,0 +1,9 @@
+in this example inside java application we have invoked:
+
+logger.error("Sorry, something wrong!", ex);
+
+that's why it is very imp to have 
+
+log4j.rootLogger=ERROR, stdout, file
+
+inside "log4j.properties" file.

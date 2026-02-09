@@ -1,0 +1,14 @@
+mypack.Sample$$SpringCGLIB$$0
+calling disp1...
+additional concern
+Method Signature: void mypack.Sample.disp1()
+inside disp1 method
+calling disp2...
+inside disp2 method
+calling disp3...
+inside disp3 method
+mypack.Sample1$$SpringCGLIB$$0
+in fun1
+additional concern
+Method Signature: void mypack.Sample1.fun2()
+in fun2

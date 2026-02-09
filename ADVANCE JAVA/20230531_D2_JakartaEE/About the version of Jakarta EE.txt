@@ -1,0 +1,5 @@
+You need to determine the corresponding Jakarta EE version based on the JDK version you obtained in the previous step. Here's a mapping of JDK versions to Jakarta EE versions:
+
+JDK 8: Jakarta EE 7
+JDK 11: Jakarta EE 8
+JDK 17: Jakarta EE 9

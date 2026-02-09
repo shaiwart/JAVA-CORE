@@ -1,0 +1,5 @@
+			DAO
+		Data Access Object
+
+DAO decouples business layer from a particular persistence mechanism [ file,database etc]. So business layer can concentrate only on business logic.
+

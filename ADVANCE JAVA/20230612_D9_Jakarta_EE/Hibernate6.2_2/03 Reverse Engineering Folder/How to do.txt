@@ -1,0 +1,60 @@
+
+file
+	new 
+		java project
+		
+convert it to maven project and add dependencies to "pom.xml"
+
+			right click on "src"
+
+		hibernate configuration
+			choose	Annotations jdk 1.5 
+right click on "src"
+		hibernate console configuration
+
+
+
+right click on "src"
+
+
+		hibernate reverse eng
+
+	hibernate code generation configuration
+
+output directory  -  \reveng\src
+
+select "reverse eng from JDBC"
+
+package - mypack  [ will be created automatically ]
+reveng.xml -  \reveng\src\hibernate.reveng.xml
+
+	"Exporters" tab
+
+using Ejb3 Annotations
+
+	select "Domain code(.java)"	
+
+	
+
+	"Refresh" tab
+	select "Refresh resource upon completion"
+	select "The project containing" selected source"
+
+	click on "apply" and "run"
+
+	make sure "mypack" package and inside it "Dept.java" is created.
+
+[ as per Hibernate 6  reverse engineering technique does not generate entity class, it generates a normal class. So you need to add the annotations like @Table, @Column and @Id inside "Dept.java" file. ]
+
+	copy "HibernateUtil.java" and "Main.java" in "mypack"
+
+	in src you must be having "hibernate.cfg.xml" and "hibernate.reveng.xml"
+
+	go to "hibernate.cfg.xml" and add following line
+
+	<mapping class="mypack.Dept"/>
+
+	right click on "project" say refresh
+
+	run "Main.java"
+

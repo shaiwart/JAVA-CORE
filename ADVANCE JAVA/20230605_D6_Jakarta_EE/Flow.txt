@@ -1,0 +1,39 @@
+
+directive
+	page
+		import
+		isThreadSafe
+		errorPage
+		isErrorPage
+
+	include
+standard actions
+	forward
+		jsp to jsp forward
+		jsp to servlet forward
+		servlet to jsp forward
+	param 
+	include
+		include directive vs include standard action
+
+attributes in JSP
+
+	page
+	request
+		page vs request 
+	session
+	application
+
+attributes in JSP
+
+attributes trial
+
+session assignment
+
+	useBean
+
+		meaning and how does it work, various scopes
+
+	useBean 1 to useBean 4
+	useBean with java objects.
+

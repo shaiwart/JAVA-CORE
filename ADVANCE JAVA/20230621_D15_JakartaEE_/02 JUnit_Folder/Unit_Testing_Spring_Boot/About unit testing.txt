@@ -1,0 +1,396 @@
+we can test PersonService and PersonRepository separately. 
+
+PersonController is where we are going to integrate.
+
+
+Let's test PersonRepository using 
+	JUnit5
+
+
+
+go to
+src/test/java
+
+	com.example.demo
+
+you will fine a class:
+
+JUnitProApplicationTests.java
+
+right click on
+	com.example.demo
+
+new class
+	Calculator
+
+
+
+package com.example.demo;
+
+public class Calculator 
+{
+	public int doSum(int a,int b,int c)
+	{
+		return a+b+c;
+	}
+	
+	public int doMultiplication(int a,int b)
+	{
+		return a*b;
+	}
+}
+
+
+open "JUnitProApplicationTests.java" and change it so that it should look like this:
+
+
+
+package com.example.demo;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+
+
+@SpringBootTest
+class JUnitProApplicationTests 
+{
+
+	private Calculator c=new Calculator();
+	
+	@Test
+	void contextLoads() 
+	{
+	}
+	
+	@Test
+	void testSum()
+	{
+		int expectedResult=22;
+		int actualResult=c.doSum(12,3,7);
+		
+		assertThat(actualResult).isEqualTo(expectedResult);
+		
+	}
+
+}
+
+
+right click on
+
+	JUnitProApplicationTests
+
+		run
+			as Junit test
+
+it'll show you that test is passed with green color bar.
+it's because expectedResult and actualResult match.
+
+now change "expectedResult" to 20 and test the application again.
+
+you'll see red color bar with the message that test is failed.
+
+
+
+	now let's test "doMultiplication" method
+
+make following changes in "JUnitProApplicationTests.java" 
+
+
+	@Test
+	void testMultiplication()
+	{
+		int expectedResult=6;
+		int actualResult=c.doMultiplication(4, 5);
+		assertThat(actualResult).isEqualTo(expectedResult);
+	}
+
+right click on
+
+	JUnitProApplicationTests
+
+		run
+			as Junit test
+
+
+
+you will find that "testSum()" fails whereas "testMultiplication()" succeeds.
+
+
+now let's test our "PersonRepository"
+
+
+right click on "PersonRepository" interface
+
+	new
+		JUnit Test Case
+
+make sure "new JUnit jupiter test" option is selected
+
+	name -  PersonRepositoryTest
+
+class under test -  com.example.repositories.PersonRepository
+
+	next
+
+Test method
+
+isPersonExistsById(Integer)
+
+click on "Finish"
+
+you will see "PersonRepositoryTest.java" inside 
+	src/test/java
+		com.example.demo     package
+
+
+make following changes inside "PersonRepositoryTest" class :
+
+
+
+package com.example.demo;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.example.entities.Person;
+
+class PersonRepositoryTest {
+
+	@Autowired
+	private PersonRepository repository;
+	
+	@Test
+	void testIsPersonExistsById() {
+		Person p=new Person();
+	//	p.setId(100);
+		p.setName("Abc");
+		p.setCity("Mumbai");
+		repository.save(p);
+		
+		boolean result=repository.isPersonExistsById(p.getId());
+		assertThat(result).isTrue();
+	}
+
+}
+
+
+
+right click on "PersonRepositoryTest"
+	run as
+		JUnit Test
+
+
+you will get NullPointerException because "repository" reference is not injected , i.e. it is null.
+
+so apply following annotation on the class "PersonRepositoryTest"
+
+	@SpringBootTest
+
+
+right click on "PersonRepositoryTest"
+	run as
+		JUnit Test
+
+make sure it works, i.e. it should give you test result true. Also if you check the database, you will get "person" table with the record.
+
+
+now what if you want to perform some task before the test and after the test?
+
+so there are two methods in the "PersonRepositoryTest" class:
+
+@BeforeEach
+void setUp()
+{
+
+}
+
+
+and 
+
+@AfterEach
+void tearDown()
+{
+}
+
+
+so just to check these methods let's write S.o.p statements inside it and check. e.g.
+
+@BeforeEach
+void setUp()
+{
+	S.o.p("Setting up");
+}
+
+
+@AfterEach
+void tearDown()
+{
+	S.o.p("tearing down");
+	repository.deleteAll();
+}
+
+
+so now our "PersonRepositoryTest.java" should look like:
+
+
+package com.example.demo;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+
+import com.example.entities.Person;
+import com.example.repositories.PersonRepository;
+
+@SpringBootTest
+class PersonRepositoryTest {
+
+	@Autowired
+	private PersonRepository repository;
+	
+	@Test
+	void testIsPersonExistsById() {
+		Person p=new Person();
+	//	p.setId(100);
+		p.setName("Abc");
+		p.setCity("Mumbai");
+		repository.save(p);
+		
+		boolean result=repository.isPersonExistsById(p.getId());
+		assertThat(result).isTrue();
+	}
+	
+	@BeforeEach
+	void setUp()
+	{
+		System.out.println("Setting up");
+	}
+
+
+	@AfterEach
+	void tearDown()
+	{
+		System.out.println("tearing down");
+		repository.deleteAll();
+	}
+
+}
+
+
+run the test and check
+	make sure it inserts the record and after the test it deletes as well.
+
+
+
+let's test the service.
+
+go to "PersonService.java" and test "getAllPersons()" method.
+
+right click on "PersonService.java"
+	new
+		JUnit test case
+
+	new JUnit Jupiter test
+
+name     :-     PersonServiceTest
+
+class under test : -     com.example.services.PersonService
+
+	next
+
+Select methods for which test method stubs should be created.
+
+	select  "getAllPersons" method
+
+
+put annotation  @SpringBootTest  on "PersonServiceTest" class
+
+
+now if you check "getAllPersons()" method of "PersonService",
+
+	public List<Person> getAllPersons()
+	{
+		return prepository.findAll();
+	}
+
+it is invoking "prepository's" findAll() method, but "repository's method already we've tested. so we need to test only "getAllPersons()" of PersonService class. That means we need to use Mockito inside PersonService class. 
+
+here we are not going to "Autowired"  PersonRepository because we don't want to invoke repository methods. Instead we will use @Mock for PersonRepository.
+
+first go to "PesonService" and add one constructor there.
+
+so before you test "PersonServiceTest" , make sure it looks like:
+
+package com.example.demo;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.verify;
+
+import org.aspectj.lang.annotation.Before;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import com.example.repositories.PersonRepository;
+import com.example.services.PersonService;
+
+@SpringBootTest
+@ExtendWith(MockitoExtension.class)
+class PersonServiceTest 
+{
+
+	@Mock
+	private PersonRepository prepository;
+	
+	
+	private PersonService pservice;
+	
+	@BeforeEach
+	void setUp()
+	{
+		pservice=new PersonService(this.prepository);
+	}
+	
+	@Test
+	void testGetAllPersons() {
+		
+		pservice.getAllPersons();
+		verify(prepository).findAll();
+	}
+
+}
+
+
+
+
+
+
+
+	
+
+
+
+
+
+
+
+
+

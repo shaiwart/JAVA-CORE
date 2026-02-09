@@ -1,0 +1,5 @@
+A unit test is a way of testing a unit - the smallest piece of code that can be logically isolated in the system.
+
+In java this can be achieved by JUnit.
+The latest version of JUnit is 5.
+

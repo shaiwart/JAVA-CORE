@@ -1,0 +1,9 @@
+
+
+  authenticatorMock = Mockito.mock(AuthenticatorInterface.class);
+
+mock() method of "Mockito" will
+	a) generate Mock of AuthenticatorInterfaceImpl
+	b) instantiate this mock 
+
+that means we can say that "authenticatorMock" reference refers to the mock object ( mock implementation of AuthenticatorInterface)

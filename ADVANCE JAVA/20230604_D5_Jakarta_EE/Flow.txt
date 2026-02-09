@@ -1,0 +1,69 @@
+Thread Safety and Servlet
+
+Load on Startup info
+
+Load_on_Startup_Eclipse
+
+Accessing_Business_logic
+
+Common_ErrorPage_For_Servlet_Jsp
+
+How_to_Upload_file
+
+war concept
+	how to create war file using eclipse and deploy it on tomcat server outside eclipse
+
+how to create maven project for only jdbc
+		select "java percepective"
+	File
+		new
+			other
+				maven project
+
+		[ org.apache.maven.archetypes  maven-archtype-quickstart   1.1  ]
+
+	right click on project and run as "Java Application"
+					select java file where main function is there.
+
+
+how to create maven project for servlet-jdbc
+		select "javaee percepective"
+	File
+		new
+			maven project
+				
+	[ org.apache.maven.archetypes  maven-archtype-webapp   1.0  ]
+		
+			create a folder "java" inside main
+		if you want to create servlet, right click on "java" 
+						new servlet
+		if you want to create any helper class,
+			inside "java"
+				create a package and then create helper class inside it.
+
+
+How to build web application using maven on Eclipse
+
+java debugging
+
+JSP
+
+JSP Info
+
+	meaning
+	difference between Servlet and JSP
+	what happens when u run JSP for the first time.
+	
+	LifeCycle methods of JSP. which methods we can override and which we can't.
+
+	implicit objects in JSP
+
+	JSP comments
+
+	declarations
+	expressions
+	scriptlets
+
+
+
+

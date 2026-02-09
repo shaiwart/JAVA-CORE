@@ -1,0 +1,22 @@
+File
+	new
+		Spring starter project
+
+JUnitPro
+
+
+maven		jar
+17		java
+
+
+next
+
+dependencies to be selected :
+
+
+
+Spring Web
+Spring Boot Devtools
+Spring Data JPA
+MySQL Driver
+spring boot starter test  [ it is automatically set]

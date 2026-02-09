@@ -1,0 +1,7 @@
+ParentBean no-arg constructor
+inside AnotherBean no-arg constr
+inside setter method of ParentBean
+After ClassPathContext
+After getBean for ParentBean
+After getBean for AnotherBean
+welcome to another bean

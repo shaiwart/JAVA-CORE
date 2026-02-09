@@ -1,0 +1,8 @@
+output:
+
+2019-02-07 19:42:09 WARN  HelloExample:26 - This is warn : Master
+2019-02-07 19:42:09 ERROR HelloExample:27 - This is error : Master
+2019-02-07 19:42:09 FATAL HelloExample:28 - This is fatal : Master
+
+
+It will not print debug and info level error logs because we defined our root logger as WARN-level in our log4j.properties file. Hence error messages with a priority greater than - equal to "Warn" will print.

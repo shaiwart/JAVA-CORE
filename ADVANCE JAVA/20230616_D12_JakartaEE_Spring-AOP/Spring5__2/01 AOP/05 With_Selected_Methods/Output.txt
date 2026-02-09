@@ -1,0 +1,23 @@
+--Spring Configuration 1
+
+
+Before Calling the	multiply	Method
+Result is	200
+Inside display method
+
+
+--Spring Configuration 2
+
+Before Calling the	multiply	Method
+Result is	200
+Before Calling the	display	Method
+Inside display method
+
+
+--Spring Configuration 3
+
+Before Calling the	multiply	Method
+After Normal Return from a method	multiply
+Result is	200
+Before Calling the	display	Method
+Inside display method

@@ -1,0 +1,9 @@
+in this example instead of "AppConfig.java" we have "mydispatcher-servlet.xml" inside "src\main\resources" folder.
+
+we have used an annotation inside "EmpDAOTest.java" 
+	@ContextConfiguration(locations = {
+        "classpath:mydispatcher-servlet.xml"})
+
+
+for "classpath:mydispatcher-servlet.xml" to work it is very imp. that "mydispatcher-servlet.xml" file has to be placed inside "src\main\resources" folder.
+

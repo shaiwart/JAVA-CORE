@@ -1,0 +1,3 @@
+right click on "AuthenticatorApplicationTest"
+		run as
+			JUnit Test

@@ -1,0 +1,4 @@
+JDK 11 or 17
+Apache Maven 3.8
+Apache Tomcat 10.x and Eclipse Jetty 11.x
+Intellij IDEA Communnity Edition or VSCode + Java Pack

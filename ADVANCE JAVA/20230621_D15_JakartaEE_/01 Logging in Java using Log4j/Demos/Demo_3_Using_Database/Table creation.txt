@@ -1,0 +1,7 @@
+CREATE TABLE LOGS
+   (USER_ID int(3)    not null auto_increment,
+    DATED   DATE           NOT NULL,
+    LOGGER  VARCHAR(50)    NOT NULL,
+    LEVEL   VARCHAR(10)    NOT NULL,
+    MESSAGE VARCHAR(1000)  NOT NULL,PRIMARY KEY (USER_ID)
+   );

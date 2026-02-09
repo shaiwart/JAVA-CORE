@@ -1,0 +1,10 @@
+
+
+
+SampleTest
+	we can run this by
+	1) right click on SampleTest
+			run as
+				JUnit Test case
+
+	2) JUnitCore.runClasses(SampleTest.class);

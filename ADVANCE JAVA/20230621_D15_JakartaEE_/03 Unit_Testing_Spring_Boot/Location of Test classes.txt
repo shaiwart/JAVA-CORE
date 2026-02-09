@@ -1,0 +1,7 @@
+all test classes should be inside the package where spring boot application is located. 
+e.g.
+
+under
+	src/test/java
+
+		com.example.demo    package

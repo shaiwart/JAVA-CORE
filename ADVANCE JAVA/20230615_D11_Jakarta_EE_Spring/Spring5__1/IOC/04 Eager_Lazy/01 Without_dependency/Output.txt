@@ -1,0 +1,5 @@
+ParentBean no-arg constructor
+After ClassPathContext
+After getBean for ParentBean
+inside AnotherBean no-arg constr
+After getBean for AnotherBean

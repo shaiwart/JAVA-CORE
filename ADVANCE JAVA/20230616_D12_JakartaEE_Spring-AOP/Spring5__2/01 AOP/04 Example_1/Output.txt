@@ -1,0 +1,7 @@
+jdk.proxy2.$Proxy4
+Before Calling the Method
+beginning of invoke
+inside multiply
+After Normal Return from a method
+after proceed
+First Result	200

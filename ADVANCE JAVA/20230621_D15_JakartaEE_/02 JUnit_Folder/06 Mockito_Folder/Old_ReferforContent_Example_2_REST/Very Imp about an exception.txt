@@ -1,0 +1,13 @@
+while running test case class if you get following exception:
+
+
+java.lang.IllegalStateException: Could not initialize plugin: interface org.mockito.plugins.MockMaker (alternate: null)
+
+
+The solution is 
+	close the project
+	go to "repository"
+	delete "net" folder
+	reopen the project
+		it will take some time to again download the required dependencies
+	now run your test class and make sure it works.

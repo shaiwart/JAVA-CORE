@@ -1,0 +1,18 @@
+@Mock
+    private ProductDAO dao;
+
+
+@Mock will create a mock implementation for the ProductDao
+
+
+@InjectMocks
+    private ProductManagerImpl productManager;
+
+
+@InjectMocks will inject the mocks marked with @Mock to this instance when it is created.
+
+So when or where are these instances created? Well, it is done in this line, which resides in the setUp method:
+
+MockitoAnnotations.initMocks(this);
+
+So these instances would be created at the start of every test method of this test class.

@@ -1,0 +1,4 @@
+@JoinColumn(name = "sid", referencedColumnName="STUDENT_ID")
+
+above annotation will create additional column inside "Phone" table as "sid" which will store students id.
+

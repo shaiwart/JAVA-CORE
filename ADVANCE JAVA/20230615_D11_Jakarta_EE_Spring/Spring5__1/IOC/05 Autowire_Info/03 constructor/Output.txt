@@ -1,0 +1,4 @@
+in MyClass1 no-arg
+in MyClass2 1 param constr taking MyClass1
+in MyClass2 disp
+in MyClass1 print

@@ -1,0 +1,134 @@
+@Entity
+public class Employee 
+{
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private int eid;
+	private String ename;
+	
+	
+	@ManyToMany 
+	private List<Project> projects;
+		// setters and getters
+
+}
+
+
+@Entity
+public class Project 
+{
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private int pid;
+	private String pname;
+	
+	@ManyToMany(mappedBy="projects")
+	private List<Employee> employees;
+
+		// setters and getters
+}
+
+association table will be:
+
+
+mysql> select * from employee_project;
++---------------+--------------+
+| employees_eid | projects_pid |
++---------------+--------------+
+|             1 |            1 |
+|             1 |            2 |
++---------------+--------------+
+
+
+inside joined table
+
+first column (employees_eid) is called as "joined column"
+and
+second column (projects_pid) is called as "inverse column"
+
+
+
+we can change the name of joined table if we want. For that we need to make following changes in "Employee.java" :
+
+@Entity
+public class Employee 
+{
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private int eid;
+	private String ename;
+	
+	
+	@ManyToMany 
+	@JoinTable(name="Em_Pr") // name of the association table
+	private List<Project> projects;
+		// setters and getters
+
+}
+
+association table will be:
+
+mysql> select * from em_pr;
++---------------+--------------+
+| employees_eid | projects_pid |
++---------------+--------------+
+|             1 |            1 |
+|             1 |            2 |
++---------------+--------------+
+2 rows in set (0.00 sec)
+
+
+inside joined table
+
+first column (employees_eid) is called as "joined column"
+and
+second column (projects_pid) is called as "inverse column"
+
+
+we can change the name of "joined column" and "inverse column".
+For that we need to make following changes in "Employee.java" :
+
+
+
+@Entity
+public class Employee 
+{
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private int eid;
+	private String ename;
+	
+	
+	@ManyToMany 
+	@JoinTable
+	(
+			name="Em_Pr",
+			joinColumns= {@JoinColumn(name="empid")},
+			inverseJoinColumns= {@JoinColumn(name="prjid")}
+	)
+	private List<Project> projects;
+		// setters and getters
+
+}
+
+
+
+association table will be:
+
+
+mysql> select * from em_pr;
++-------+-------+
+| empid | prjid |
++-------+-------+
+|     1 |     1 |
+|     1 |     2 |
++-------+-------+
+2 rows in set (0.00 sec)
+
+
+inside joined table
+
+first column (empid) is called as "joined column"
+and
+second column (prjid) is called as "inverse column"
+

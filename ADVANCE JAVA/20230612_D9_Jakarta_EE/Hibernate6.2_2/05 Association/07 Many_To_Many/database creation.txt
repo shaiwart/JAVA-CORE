@@ -1,0 +1,5 @@
+mysql> create database manytomany;
+Query OK, 1 row affected (0.86 sec)
+
+mysql> use manytomany;
+Database changed

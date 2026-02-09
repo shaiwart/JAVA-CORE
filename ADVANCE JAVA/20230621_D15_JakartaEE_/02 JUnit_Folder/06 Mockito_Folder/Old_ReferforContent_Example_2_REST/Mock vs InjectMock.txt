@@ -1,0 +1,23 @@
+@Mock is used to declare/mock the references of the dependent beans, 
+
+while @InjectMocks is used to mock the bean for which test is being created. 
+
+@InjectMocks annotation can be used to inject mock fields into a test object automatically.
+
+e.g.
+
+@Service
+public class ProductManagerImpl implements ProductManager
+{
+	@Autowired
+	ProductDAO dao;
+}
+
+
+	@Mock
+  	private ProductDAO dao;
+
+	@InjectMocks
+	private ProductManagerImpl productManager;
+
+so here "@InjectMocks" means that productManager shouldn't be mocked. It requires "Product dao" as dependency. So "dao" shouldn't be given actual implementation, it should be given mock implementation inside "ProductManager" class. ie. InjectMocks

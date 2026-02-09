@@ -1,0 +1,3 @@
+public static void initMocks(Object testClass)
+
+Initializes objects annotated with Mockito annotations for given testClass: @Mock, @InjectMoc etc.

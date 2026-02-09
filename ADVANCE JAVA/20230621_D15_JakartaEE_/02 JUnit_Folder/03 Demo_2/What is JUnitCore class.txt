@@ -1,0 +1,6 @@
+JUnitCore is an inbuilt class in JUnit package and it is based on facade design pattern. 
+JUnitCore class is used to run only specified test classes.
+
+org.junit.runner.JUnitCore class is responsible for executing tests. runClasses() method of JUnitCore class enables running the one or more test classes which yield Result Object (org.junit.runner.Result).
+
+The test results will be extracted from the Result Object.

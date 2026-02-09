@@ -1,0 +1,10 @@
+What is Framework?
+
+Framework consist of classes and interfaces.
+These classes and interfaces can work together in order to solve a particular problem.
+Framework components are reusable.
+
+Frameworks are large bodies of pre-written code to which you add your own code in order to solve a problem. Java frameworks are software libraries created to make building Java applications easier and faster.
+
+
+

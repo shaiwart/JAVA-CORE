@@ -1,0 +1,110 @@
+file
+	new java project
+		right click project
+			new package "mypack"
+
+	right click "mypack"
+		new class "Sample"
+
+
+package mypack;
+
+public class Sample 
+{
+	public int sqr(int k)
+	{
+		return k*k;
+	}
+}
+
+
+right click on project
+	configure
+		convert to maven project
+
+add following dependency for JUnit 4
+
+ <dependencies>
+   <dependency>
+    <groupId>junit</groupId>
+    <artifactId>junit</artifactId>
+    <version>4.12</version>
+ </dependency>
+  </dependencies>
+
+
+right click "mypack"
+	new "JUnit Test Case"
+	
+make sure "New JUnit Jupiter Test" option is selected:
+
+Type name
+	SampleTest
+
+select "setUp" and "tearDown" methods
+
+
+select "class under test"
+		mypack.Sample
+
+
+next
+	Test methods:
+		Select methods for which test method stubs should be created.
+			select "sqr" method
+
+	Add JUnit5 class to the build path	
+
+	click "finish"
+
+make sure u get following test class:
+	SampleTest
+
+
+ make some changes in the "SampleTest" class as follows:
+
+
+package mypack;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import java.util.*
+;class SampleTest {
+
+	private Scanner sc=new Scanner(System.in);
+	private Sample s=new Sample();
+	
+	@Test
+	public void testSqr() {
+		System.out.println("Enter input");
+		int input=sc.nextInt();
+		System.out.println("Enter expected Result");
+		int result=sc.nextInt();
+		assertEquals(result,s.sqr(input));
+	}
+	
+	@BeforeEach
+	void setUp() throws Exception {
+		System.out.println("Before Testing");
+	}
+
+	@AfterEach
+	void tearDown() throws Exception {
+		System.out.println("After Testing");
+	}
+
+}
+
+
+right click on "SampleTest"
+		run as
+			JUnit Test
+
+make sure it works.
+
+
+
+

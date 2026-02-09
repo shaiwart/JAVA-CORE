@@ -1,0 +1,6 @@
+with component scan
+Author constructor
+Book constructor
+Inside Book setAuthor
+Before calling getBean
+abc	pune	70	2010

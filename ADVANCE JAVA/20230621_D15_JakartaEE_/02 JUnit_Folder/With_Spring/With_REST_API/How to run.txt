@@ -1,0 +1,5 @@
+right click on "EmpDAOTest"
+		run as
+			JUnit Test
+
+	before that do not forget to select "JUnit 4" inside run configuration.

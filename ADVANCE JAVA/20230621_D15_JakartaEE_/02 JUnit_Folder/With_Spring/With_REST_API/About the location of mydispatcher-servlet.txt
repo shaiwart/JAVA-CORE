@@ -1,0 +1,5 @@
+In order to run the project "mydispatcher-servlet" has to be inside "WEB-INF" folder of your project.
+
+In order to run "EmpDAOTest" as JUNIT Test "mydispatcher-servlet" has to be inside "resources" folder.
+
+That is you need to keep "mydispatcher-servlet" file in both the above locations.

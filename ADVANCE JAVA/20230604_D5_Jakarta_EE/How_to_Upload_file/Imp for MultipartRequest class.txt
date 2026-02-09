@@ -1,0 +1,1 @@
+For uploading a file to the server, we have used MultipartRequest class provided by oreilly. For using this class you must have maven dependency for cos.jar file.

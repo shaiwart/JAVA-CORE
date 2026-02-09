@@ -1,0 +1,37 @@
+
+
+		First-Level cache
+
+compulsory for an application, because it is related to hibernate session. it's available as long we don't say "session.evict()" or "session.close()". Inside "first-level cache" or "session cache" reference/s to the entire object/s are stored.
+
+
+
+		Second-Level cache
+
+not compulsory. If application would like to have Second-Level cache, it has to get it explicitly. Two points are imp. here:
+
+1) Second Level cache is common for all the hibernate sessions. [ it's because session level cache belongs to SessionFactory]
+
+2) how the data is stored inside Second Level Cache?
+	key             		value
+	primary key field       [ set of other members ]
+
+
+
+		Query cache
+
+it is required to fire same query again and again with the same parameters.
+
+There are two points imp:
+
+1) how does query cache store the data?
+
+key					value
+
+query + parameter/s			result which comes from database
+
+2) it requires Second-Level cache.
+
+
+
+

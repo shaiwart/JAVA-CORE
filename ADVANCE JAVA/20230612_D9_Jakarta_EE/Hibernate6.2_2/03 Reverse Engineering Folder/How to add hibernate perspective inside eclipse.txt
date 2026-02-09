@@ -1,0 +1,17 @@
+https://tools.jboss.org/downloads/jbosstools/2023-03/4.27.0.Final.html
+
+
+Add the following URL to your Eclipse 4.27 (2023-03) installation, via:
+
+Help > Install New Software… > Work with:
+
+https://download.jboss.org/jbosstools/photon/stable/updates/
+
+Then select the individual features that you want to install:
+
+
+JBoss web and Javaee development
+
+
+
+

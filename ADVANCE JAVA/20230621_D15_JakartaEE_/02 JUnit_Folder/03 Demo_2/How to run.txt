@@ -1,0 +1,6 @@
+right click on 
+	SampleTestRunner
+
+	run as
+		Java Application
+

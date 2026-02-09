@@ -1,0 +1,3 @@
+right click on "TestJunit1.java"
+		run as
+			JUnit Test

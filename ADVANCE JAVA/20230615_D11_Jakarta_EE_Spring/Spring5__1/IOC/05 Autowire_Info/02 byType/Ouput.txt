@@ -1,0 +1,5 @@
+in MyClass1 no-arg
+in MyClass2 no-arg
+in setOb of MyClass2
+in MyClass2 disp
+in MyClass1 print

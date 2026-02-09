@@ -1,0 +1,2 @@
+with component scan
+abc	pune	85	2000

@@ -1,0 +1,5 @@
+java 17
+spring 6
+hibernate 6
+maven 3.9
+Spring Boot 3
