@@ -1,21 +1,25 @@
 WILDCARDS IN JAVA GENERICS
 ================================================================================
-Wildcards in Java generics are a mechanism to make generic code more flexible. 
+Wildcards in Java generics are a mechanism to make generic code more flexible.
 They represent an unknown type and are denoted by the question mark symbol (?).
 
-To understand why they are needed, we first need to look at how Java handles 
+To understand why they are needed, we first need to look at how Java handles
 generic inheritance.
 
 
 1. THE PROBLEM: GENERICS ARE INVARIANT
 --------------------------------------------------------------------------------
-In Java, arrays are covariant, meaning Integer[] is a subtype of Number[]. 
+In Java, arrays are covariant, meaning Integer[] is a subtype of Number[].
 However, generics are invariant.
 
 * List<Integer> is NOT a subtype of List<Number>.
 
-This causes issues when you want to write a method that can handle a list of 
+This causes issues when you want to write a method that can handle a list of
 numbers, regardless of whether they are Integers, Doubles, or Floats.
+    Number
+        Integer
+        Doubles
+        Floats
 
 Code Problem:
     // This method ONLY accepts List<Number>, not List<Integer>
@@ -24,7 +28,8 @@ Code Problem:
     List<Integer> myInts = new ArrayList<>();
     printNumbers(myInts); // COMPILE ERROR!
 
-Wildcards solve this by allowing you to specify a "range" of types rather than 
+⭐️⭐️⭐️⭐️⭐️
+Wildcards solve this by allowing you to specify a "range" of types rather than
 a specific one.
 
 
@@ -35,8 +40,8 @@ There are three main ways to use wildcards:
 
 A. Unbounded Wildcards (<?>)
 ----------------------------------------
-This represents a list of anything. It is useful when your method only uses 
-methods defined in the Object class or doesn't care about the specific type 
+This represents a list of anything. It is useful when your method only uses
+methods defined in the Object class or doesn't care about the specific type
 (e.g., checking the size of a list).
 
     public void printList(List<?> list) {
@@ -53,7 +58,7 @@ Usage:
 B. Upper Bounded Wildcards (<? extends Type>)
 ----------------------------------------
 This restricts the unknown type to be a specific type or a subclass of that type.
-This is used when you want to READ data from a generic structure.
+This is used when you want to READ data ⭐️ from a generic structure.
 
 * Syntax:  List<? extends Number>
 * Meaning: "A list of some unknown type that is a Number or inherits from Number."
@@ -62,7 +67,7 @@ This is used when you want to READ data from a generic structure.
         double s = 0.0;
         for (Number n : list) {
             // Safe because we know everything in the list is a Number
-            s += n.doubleValue(); 
+            s += n.doubleValue();
         }
         return s;
     }
@@ -71,17 +76,17 @@ Usage:
     List<Integer> ints = Arrays.asList(1, 2, 3);
     sumOfList(ints); // Works!
 
-> RESTRICTION: You cannot add items to this list (except null), because the 
+> RESTRICTION: You cannot add items to this list (except null), because the
   compiler cannot guarantee the specific subtype of the list.
 
 
 C. Lower Bounded Wildcards (<? super Type>)
 ----------------------------------------
 This restricts the unknown type to be a specific type or a superclass of that type.
-This is used when you want to WRITE data into a generic structure.
+This is used when you want to WRITE data ⭐️ into a generic structure.
 
 * Syntax:  List<? super Integer>
-* Meaning: "A list of some unknown type that is an Integer or a parent of 
+* Meaning: "A list of some unknown type that is an Integer or a parent of
   Integer (like Number or Object)."
 
     public void addNumbers(List<? super Integer> list) {
@@ -100,10 +105,10 @@ To know which wildcard to use, remember the PECS mnemonic:
 
     Producer Extends, Consumer Super.
 
-* Producer (<? extends T>): The collection produces data (you read from it). 
+* Producer (<? extends T>): The collection produces data (you read from it).
   You want to iterate over the list and treat elements as T.
 
-* Consumer (<? super T>): The collection consumes data (you write to it). 
+* Consumer (<? super T>): The collection consumes data (you write to it).
   You want to add objects of type T into the list.
 
 Example of PECS in action:
