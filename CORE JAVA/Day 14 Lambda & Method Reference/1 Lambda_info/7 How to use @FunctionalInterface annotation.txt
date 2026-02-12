@@ -1,6 +1,5 @@
 @FunctionalInterface
-public interface MyInterface
-{
+public interface MyInterface {
 	void disp1();
 	//void disp2();
 }
