@@ -15,7 +15,7 @@ Collection API provides us
 		- allows u to traverse through containers.
 
 	- Algorithms
-		- sort,count,max,min etc.
+		- sort,count,max,min etc. (with arrays we don't get these by default)
 
 
 Entire support for Collection API has been given inside "java.util" package.
